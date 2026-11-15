@@ -2,11 +2,21 @@
 
 import * as React from "react"
 import Image from "next/image"
-import { ArrowUpRight, Menu } from "lucide-react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { ArrowUpRight, ChevronDown, ChevronRight, Menu } from "lucide-react"
 import { cn } from "cn"
 
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
+import { Badge } from "@/components/ui/badge"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import {
   Sheet,
   SheetContent,
@@ -15,7 +25,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
-import { navItems, site } from "@/lib/site-data"
+import { navItems, partners, site } from "@/lib/site-data"
 import euBadge from "@/assets/images/eu-cofunded.jpg"
 
 /** Every section id the scroll-spy watches, excluding the page top. */
@@ -28,8 +38,11 @@ const SPY_OFFSET = 120
 
 function useActiveSection() {
   const [active, setActive] = React.useState("top")
+  const pathname = usePathname()
 
   React.useEffect(() => {
+    if (pathname !== "/") return
+
     let frame = 0
 
     const update = () => {
@@ -69,7 +82,7 @@ function useActiveSection() {
       window.removeEventListener("resize", onScroll)
       if (frame) cancelAnimationFrame(frame)
     }
-  }, [])
+  }, [pathname])
 
   return active
 }
@@ -94,16 +107,49 @@ function ErasmusLink({ className }: { className?: string }) {
 
 export function SiteHeader() {
   const active = useActiveSection()
+  const pathname = usePathname()
   const [open, setOpen] = React.useState(false)
-  const pendingHash = React.useRef<string | null>(null)
+  const [partnersOpen, setPartnersOpen] = React.useState(false)
+  const [mobilePartnersOpen, setMobilePartnersOpen] = React.useState(false)
 
-  const isActive = (sections: string[]) => sections.includes(active)
+  const isHome = pathname === "/"
+  const isPartnersActive =
+    pathname.startsWith("/partners") || (isHome && ["partners", "mobilities"].includes(active))
+
+  const isActive = (item: (typeof navItems)[number]) => {
+    if (item.isDropdown) return isPartnersActive
+    if (!isHome) return false
+    return item.sections.includes(active)
+  }
+
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    if (href.startsWith("/#") && isHome) {
+      e.preventDefault()
+      const targetId = href.replace("/#", "")
+      const target =
+        targetId === "top"
+          ? document.body
+          : document.getElementById(targetId)
+      if (target) {
+        const behavior: ScrollBehavior = window.matchMedia(
+          "(prefers-reduced-motion: reduce)"
+        ).matches
+          ? "auto"
+          : "smooth"
+        target.scrollIntoView({ behavior, block: "start" })
+        history.replaceState(null, "", `#${targetId}`)
+      }
+    }
+  }
 
   return (
     <header className="sticky top-0 z-40 bg-[linear-gradient(110deg,var(--color-brand-strong),var(--color-brand-deep))] text-white shadow-header">
       <div className="mx-auto flex min-h-[65px] max-w-[1460px] items-center justify-between gap-4 px-4 py-2 sm:px-6">
-        <a
-          href="#top"
+        <Link
+          href="/"
           className="rounded-md leading-[1.05] whitespace-nowrap outline-none focus-visible:ring-3 focus-visible:ring-white/50"
         >
           <span className="block text-[19px] font-extrabold tracking-tight sm:text-[21px]">
@@ -112,23 +158,114 @@ export function SiteHeader() {
           <span className="mt-1.5 block text-xs font-medium text-white/90">
             {site.tagline}
           </span>
-        </a>
+        </Link>
 
         {/* Desktop navigation */}
         <nav aria-label="Main" className="hidden items-center gap-0.5 lg:flex">
-          {navItems.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              aria-current={isActive(item.sections) ? "location" : undefined}
-              className={cn(
-                "rounded-[10px] px-3 py-2.5 text-[13px] font-semibold text-white transition-colors outline-none hover:bg-sky hover:text-accent-foreground focus-visible:ring-3 focus-visible:ring-white/50 xl:px-3.5",
-                isActive(item.sections) && "bg-sky text-accent-foreground"
-              )}
-            >
-              {item.label}
-            </a>
-          ))}
+          {navItems.map((item) => {
+            if (item.isDropdown) {
+              return (
+                <DropdownMenu
+                  key={item.label}
+                  open={partnersOpen}
+                  onOpenChange={setPartnersOpen}
+                >
+                  <DropdownMenuTrigger asChild>
+                    <button
+                      type="button"
+                      aria-current={isPartnersActive ? "location" : undefined}
+                      className={cn(
+                        "group inline-flex items-center gap-1 rounded-[10px] px-3 py-2.5 text-[13px] font-semibold text-white transition-colors outline-none hover:bg-sky hover:text-accent-foreground focus-visible:ring-3 focus-visible:ring-white/50 xl:px-3.5",
+                        isPartnersActive && "bg-sky text-accent-foreground"
+                      )}
+                    >
+                      <span>{item.label}</span>
+                      <ChevronDown
+                        className={cn(
+                          "size-3.5 transition-transform duration-200",
+                          partnersOpen && "rotate-180"
+                        )}
+                      />
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent
+                    align="start"
+                    sideOffset={8}
+                    className="w-80 rounded-xl border border-line bg-white p-2 shadow-xl"
+                  >
+                    <div className="px-2 py-1.5 text-[11px] font-black tracking-wider text-leaf uppercase">
+                      Project Partner Profiles
+                    </div>
+                    {partners.map((partner) => (
+                      <DropdownMenuItem key={partner.slug} asChild>
+                        <Link
+                          href={`/partners/${partner.slug}`}
+                          onClick={() => setPartnersOpen(false)}
+                          className="flex cursor-pointer items-start gap-2.5 rounded-lg px-2.5 py-2.5 text-xs transition-colors hover:bg-mist focus:bg-mist"
+                        >
+                          <span className="grid size-6 shrink-0 place-items-center overflow-hidden rounded-full border border-line bg-white shadow-2xs mt-0.5">
+                            <Image
+                              src={`/flags/${partner.code}.svg`}
+                              alt=""
+                              width={24}
+                              height={24}
+                              unoptimized
+                              className="size-full object-cover"
+                            />
+                          </span>
+                          <div className="min-w-0 flex-1">
+                            <div className="flex items-center gap-1.5">
+                              <span className="font-bold text-ink truncate">
+                                {partner.school}
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-1.5 text-[10px] text-ink-muted">
+                              <span>{partner.country}</span>
+                              <span>•</span>
+                              <span className="text-leaf font-medium">
+                                {partner.role === "Project Coordinator"
+                                  ? "Coordinator"
+                                  : "Partner"}
+                              </span>
+                            </div>
+                          </div>
+                        </Link>
+                      </DropdownMenuItem>
+                    ))}
+                    <DropdownMenuSeparator className="my-1 bg-line" />
+                    <DropdownMenuItem asChild>
+                      <Link
+                        href="/#partners"
+                        onClick={(e) => {
+                          setPartnersOpen(false)
+                          handleNavClick(e, "/#partners")
+                        }}
+                        className="flex cursor-pointer items-center justify-between rounded-lg px-2.5 py-2 text-xs font-semibold text-brand transition-colors hover:bg-sky-soft hover:text-brand"
+                      >
+                        <span>View Partners Overview Section</span>
+                        <ChevronRight className="size-3.5" />
+                      </Link>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              )
+            }
+
+            return (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={(e) => handleNavClick(e, item.href)}
+                aria-current={isActive(item) ? "location" : undefined}
+                className={cn(
+                  "rounded-[10px] px-3 py-2.5 text-[13px] font-semibold text-white transition-colors outline-none hover:bg-sky hover:text-accent-foreground focus-visible:ring-3 focus-visible:ring-white/50 xl:px-3.5",
+                  isActive(item) && "bg-sky text-accent-foreground"
+                )}
+              >
+                {item.label}
+              </a>
+            )
+          })}
           <ErasmusLink className="ml-1.5" />
         </nav>
 
@@ -146,28 +283,7 @@ export function SiteHeader() {
           </SheetTrigger>
           <SheetContent
             side="right"
-            className="w-[86%] gap-0 border-l-0 bg-white p-0 sm:max-w-sm"
-            onCloseAutoFocus={(event) => {
-              // Scroll to the chosen section only once the sheet has fully
-              // closed and the page scroll lock has been released.
-              const hash = pendingHash.current
-              if (!hash) return
-              event.preventDefault()
-              pendingHash.current = null
-              const behavior: ScrollBehavior = window.matchMedia(
-                "(prefers-reduced-motion: reduce)"
-              ).matches
-                ? "auto"
-                : "smooth"
-              if (hash === "#top") {
-                window.scrollTo({ top: 0, behavior })
-              } else {
-                document
-                  .querySelector(hash)
-                  ?.scrollIntoView({ behavior, block: "start" })
-              }
-              history.replaceState(null, "", hash)
-            }}
+            className="w-[88%] gap-0 border-l-0 bg-white p-0 sm:max-w-sm overflow-y-auto"
           >
             <SheetHeader className="bg-[linear-gradient(110deg,var(--color-brand-strong),var(--color-brand-deep))] px-5 pt-5 pb-4 text-white">
               <SheetTitle className="text-lg font-extrabold text-white">
@@ -178,24 +294,72 @@ export function SiteHeader() {
               </SheetDescription>
             </SheetHeader>
             <nav aria-label="Mobile" className="flex flex-col gap-1 p-3">
-              {navItems.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  aria-current={isActive(item.sections) ? "location" : undefined}
-                  onClick={(event) => {
-                    event.preventDefault()
-                    pendingHash.current = item.href
-                    setOpen(false)
-                  }}
-                  className={cn(
-                    "rounded-[10px] px-4 py-3 text-[15px] font-semibold text-ink transition-colors outline-none hover:bg-mist focus-visible:ring-3 focus-visible:ring-ring/40",
-                    isActive(item.sections) && "bg-sky text-accent-foreground"
-                  )}
-                >
-                  {item.label}
-                </a>
-              ))}
+              {navItems.map((item) => {
+                if (item.isDropdown) {
+                  return (
+                    <div key={item.label} className="rounded-[10px] overflow-hidden">
+                      <button
+                        type="button"
+                        onClick={() => setMobilePartnersOpen(!mobilePartnersOpen)}
+                        className={cn(
+                          "flex w-full items-center justify-between rounded-[10px] px-4 py-3 text-[15px] font-semibold text-ink transition-colors outline-none hover:bg-mist",
+                          isPartnersActive && "bg-sky text-accent-foreground"
+                        )}
+                      >
+                        <span>{item.label}</span>
+                        <ChevronDown
+                          className={cn(
+                            "size-4 transition-transform duration-200",
+                            mobilePartnersOpen && "rotate-180"
+                          )}
+                        />
+                      </button>
+                      {mobilePartnersOpen && (
+                        <div className="my-1 ml-3 space-y-1 border-l-2 border-brand/30 pl-2">
+                          {partners.map((partner) => (
+                            <Link
+                              key={partner.slug}
+                              href={`/partners/${partner.slug}`}
+                              onClick={() => setOpen(false)}
+                              className="flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-semibold text-ink transition-colors hover:bg-mist"
+                            >
+                              <span className="grid size-4 shrink-0 place-items-center overflow-hidden rounded-full">
+                                <Image
+                                  src={`/flags/${partner.code}.svg`}
+                                  alt=""
+                                  width={16}
+                                  height={16}
+                                  unoptimized
+                                  className="size-full object-cover"
+                                />
+                              </span>
+                              <span className="truncate">{partner.school}</span>
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )
+                }
+
+                return (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    aria-current={isActive(item) ? "location" : undefined}
+                    onClick={(e) => {
+                      setOpen(false)
+                      handleNavClick(e, item.href)
+                    }}
+                    className={cn(
+                      "rounded-[10px] px-4 py-3 text-[15px] font-semibold text-ink transition-colors outline-none hover:bg-mist focus-visible:ring-3 focus-visible:ring-ring/40",
+                      isActive(item) && "bg-sky text-accent-foreground"
+                    )}
+                  >
+                    {item.label}
+                  </a>
+                )
+              })}
             </nav>
             <div className="mt-auto flex flex-col gap-4 p-5">
               <ErasmusLink className="w-full" />

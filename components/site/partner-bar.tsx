@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 
 import { partners } from "@/lib/site-data"
 
@@ -20,24 +21,24 @@ export function PartnerBar() {
         <ul className="grid grid-cols-5 gap-1 text-center sm:gap-2.5">
           {partners.map((partner) => (
             <li key={partner.code}>
-              <a
-                href="#partners"
+              <Link
+                href={`/partners/${partner.slug}`}
                 className="group flex flex-col items-center gap-2 rounded-xl p-1 outline-none focus-visible:ring-3 focus-visible:ring-ring/40"
               >
                 <span className="grid size-11 place-items-center overflow-hidden rounded-full border-2 border-[#e6edf2] bg-white shadow-[0_2px_7px_#082e5c19] transition-transform duration-200 group-hover:scale-105 group-hover:shadow-[0_6px_14px_#082e5c26] sm:size-[67px]">
                   <Image
                     src={`/flags/${partner.code}.svg`}
-                    alt=""
+                    alt={partner.country}
                     width={67}
                     height={67}
                     unoptimized
                     className="size-full object-cover"
                   />
                 </span>
-                <span className="text-[10px] leading-tight font-bold text-ink sm:text-sm sm:whitespace-nowrap">
+                <span className="text-[10px] leading-tight font-bold text-ink sm:text-sm sm:whitespace-nowrap group-hover:text-brand transition-colors">
                   {partner.country}
                 </span>
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
@@ -45,4 +46,3 @@ export function PartnerBar() {
     </div>
   )
 }
-
