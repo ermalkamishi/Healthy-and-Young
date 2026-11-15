@@ -201,24 +201,31 @@ export default async function PartnerDetailPage({ params }: PageProps) {
             <div className="space-y-8">
               {/* About the organization */}
               <Card className="p-6 sm:p-8">
-                <div className="flex items-center gap-2.5 text-xs font-black tracking-wider text-leaf uppercase">
-                  <Building2 className="size-4" />
-                  <span>About the Institution</span>
-                </div>
-                <h2 className="mt-2 text-xl font-bold text-ink sm:text-2xl">
-                  Background &amp; Profile
-                </h2>
-                {partner.image && (
-                  <div className="relative mt-4 mb-5 h-56 sm:h-72 w-full overflow-hidden rounded-xl border border-line bg-mist shadow-xs">
-                    <Image
-                      src={partner.image}
-                      alt={partner.school}
-                      fill
-                      unoptimized
-                      className="object-cover object-center"
-                    />
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <div className="flex items-center gap-2.5 text-xs font-black tracking-wider text-leaf uppercase">
+                      <Building2 className="size-4" />
+                      <span>About the Institution</span>
+                    </div>
+                    <h2 className="mt-2 text-xl font-bold text-ink sm:text-2xl">
+                      Background &amp; Profile
+                    </h2>
                   </div>
-                )}
+
+                  {partner.image && (
+                    <div className="grid size-20 sm:size-24 shrink-0 place-items-center overflow-hidden rounded-full border-2 border-line bg-white p-1 shadow-md transition-transform duration-200 hover:scale-105">
+                      <Image
+                        src={partner.image}
+                        alt={`${partner.school} icon`}
+                        width={96}
+                        height={96}
+                        unoptimized
+                        className="size-full rounded-full object-contain"
+                      />
+                    </div>
+                  )}
+                </div>
+
                 <div className="mt-4 space-y-3.5 text-sm leading-[1.7] text-muted-foreground sm:text-base">
                   {partner.about.map((p, i) => (
                     <p key={i}>{p}</p>
