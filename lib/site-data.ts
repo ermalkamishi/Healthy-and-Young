@@ -58,6 +58,8 @@ export const navItems: NavItem[] = [
   { label: "Home", href: "#top", sections: ["top"] },
   { label: "About", href: "#overview", sections: ["overview"] },
   { label: "Partners", href: "#partners", sections: ["partners", "mobilities"] },
+
+  { label: "Mobilities", href: "#mobilities", sections: ["mobilities"] },
   {
     label: "Activities",
     href: "#activities",
@@ -72,14 +74,41 @@ export const navItems: NavItem[] = [
 export type Partner = {
   country: string
   code: "tr" | "it" | "pl" | "hr" | "mk"
+  school: string
+  role: "Project Coordinator" | "Project Partner"
 }
 
 export const partners: Partner[] = [
-  { country: "Türkiye", code: "tr" },
-  { country: "Italy", code: "it" },
-  { country: "Poland", code: "pl" },
-  { country: "Croatia", code: "hr" },
-  { country: "North Macedonia", code: "mk" },
+  {
+    country: "Türkiye",
+    code: "tr",
+    school: "Adile Mermerci Anatolian High School",
+    role: "Project Coordinator",
+  },
+  {
+    country: "Italy",
+    code: "it",
+    school: "IISS “Patini-Liberatore-De Panfilis”",
+    role: "Project Partner",
+  },
+  {
+    country: "Poland",
+    code: "pl",
+    school: "Zespół Szkół Ogólnokształcących im. Stefana Żeromskiego w Bielsku-Białej",
+    role: "Project Partner",
+  },
+  {
+    country: "Croatia",
+    code: "hr",
+    school: "Gimnazija Metković",
+    role: "Project Partner",
+  },
+  {
+    country: "North Macedonia",
+    code: "mk",
+    school: "Association for Sustainable Development ARS PUBLICA",
+    role: "Project Partner",
+  },
 ]
 
 export type Tile = {

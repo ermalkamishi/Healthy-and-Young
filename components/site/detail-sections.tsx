@@ -1,10 +1,13 @@
 import type { ReactNode } from "react"
+import Image from "next/image"
 import { FolderOpen } from "lucide-react"
 
 import { Card } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
 import {
   detailSections,
   legal,
+  partners,
   placeholderNotice,
   site,
 } from "@/lib/site-data"
@@ -51,6 +54,51 @@ export function DetailSections() {
           <p className="mb-3.5 leading-[1.65] text-muted-foreground">
             {section.description}
           </p>
+
+          {section.id === "partners" && (
+            <div className="my-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {partners.map((partner) => (
+                <div
+                  key={partner.code}
+                  className="flex items-start gap-3 rounded-xl border border-line bg-white p-3.5 shadow-sm transition-all hover:border-brand/40 hover:shadow-md"
+                >
+                  <span className="grid size-11 shrink-0 place-items-center overflow-hidden rounded-full border border-line bg-white shadow-xs">
+                    <Image
+                      src={`/flags/${partner.code}.svg`}
+                      alt={partner.country}
+                      width={44}
+                      height={44}
+                      unoptimized
+                      className="size-full object-cover"
+                    />
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex flex-wrap items-center gap-1.5">
+                      <span className="text-xs font-bold text-ink">
+                        {partner.country}
+                      </span>
+                      {partner.role === "Project Coordinator" ? (
+                        <Badge className="bg-mint text-white hover:bg-mint text-[10px] px-1.5 py-0 h-4">
+                          Coordinator
+                        </Badge>
+                      ) : (
+                        <Badge
+                          variant="secondary"
+                          className="text-[10px] px-1.5 py-0 h-4"
+                        >
+                          Partner
+                        </Badge>
+                      )}
+                    </div>
+                    <p className="mt-1 text-xs font-medium leading-snug text-ink-soft">
+                      {partner.school}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
           <div className="flex items-start gap-2.5 rounded-[9px] border border-dashed border-[#b6d4f1] bg-frost p-[13px] text-[13px] leading-normal text-[#55718a]">
             <FolderOpen
               className="mt-px size-4 shrink-0 text-[#7d9bbd]"

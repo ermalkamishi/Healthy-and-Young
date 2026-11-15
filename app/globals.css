@@ -8,59 +8,25 @@
  * Healthy and Young — design tokens
  * Palette taken from the approved prototype (app/test.html).
  */
-/* 
- Project Coordinator */
-/* 
-Adÿle Mermercÿ Anatolian High School,
-
-Turkey
-
-Project Partners
-
-IISS “Patini-Liberatore-De Panfilis”, ITALY
-Zespol Szkol Ogolnoksztalcacych im.
-Stefana Zeromskiego w Bielsku-Bialej,
-
-POLAND
-
-Assosiation for Sustainable Development
-ARS PUBLICA, NORTH MACEDONIA
-Gimnazija Metkovic, CROATIA */
 @theme inline {
   /* Brand palette */
-  --color-ink: #0b3478;
-  /* headings & body ink */
-  --color-ink-soft: #4b6794;
-  /* secondary copy */
-  --color-ink-muted: #57769b;
-  /* tile descriptions */
-  --color-brand: #0b4fbe;
-  /* primary buttons, icons */
-  --color-brand-strong: #0752ae;
-  /* header gradient start */
-  --color-brand-deep: #043274;
-  /* header gradient end */
-  --color-navy: #063d89;
-  /* footer */
+  --color-ink: #0b3478; /* headings & body ink */
+  --color-ink-soft: #4b6794; /* secondary copy */
+  --color-ink-muted: #57769b; /* tile descriptions */
+  --color-brand: #0b4fbe; /* primary buttons, icons */
+  --color-brand-strong: #0752ae; /* header gradient start */
+  --color-brand-deep: #043274; /* header gradient end */
+  --color-navy: #063d89; /* footer */
   --color-hero-title: #0d4493;
-  --color-sky: #b9e0ff;
-  /* active nav pill */
-  --color-sky-soft: #e1efff;
-  /* tile arrow chip */
-  --color-mist: #eaf5ff;
-  /* details band */
-  --color-frost: #f2f8ff;
-  /* notice background */
-  --color-line: #d6e8f5;
-  /* card borders */
-  --color-mint: #39c476;
-  /* Erasmus+ CTA */
-  --color-mint-bar: #47bf7c;
-  /* heading accent bar */
-  --color-leaf: #26885d;
-  /* section labels */
-  --color-young: #329f78;
-  /* "Young" in hero title */
+  --color-sky: #b9e0ff; /* active nav pill */
+  --color-sky-soft: #e1efff; /* tile arrow chip */
+  --color-mist: #eaf5ff; /* details band */
+  --color-frost: #f2f8ff; /* notice background */
+  --color-line: #d6e8f5; /* card borders */
+  --color-mint: #39c476; /* Erasmus+ CTA */
+  --color-mint-bar: #47bf7c; /* heading accent bar */
+  --color-leaf: #26885d; /* section labels */
+  --color-young: #329f78; /* "Young" in hero title */
 
   /* shadcn semantic tokens */
   --color-background: var(--background);
