@@ -66,9 +66,10 @@ export const navItems: NavItem[] = [
   {
     label: "Partners",
     href: "/#partners",
-    sections: ["partners", "mobilities"],
+    sections: ["partners"],
     isDropdown: true,
   },
+  { label: "Mobilities", href: "/#mobilities", sections: ["mobilities"] },
   {
     label: "Activities",
     href: "/#activities",
@@ -111,6 +112,7 @@ export type Partner = {
   estDate?: string
   studentCount?: string
   teacherCount?: string
+  image?: string
   grantAllocated: string
   summary: string
   about: string[]
@@ -139,6 +141,7 @@ export const partners: Partner[] = [
     studentCount: "548 students (ages 14–18, 5-year curriculum)",
     teacherCount: "40 teachers",
     grantAllocated: "€28,480.00",
+    image: "/images/partners/turkey.jpeg",
     summary:
       "Leading state Anatolian high school in Istanbul and the Project Coordinator for the Healthy and Young Erasmus+ project, managing cross-country cooperation, organic farm-to-fork practices, and youth well-being initiatives.",
     about: [
@@ -207,11 +210,12 @@ export const partners: Partner[] = [
     oid: "E10096431",
     city: "Castel Di Sangro",
     region: "Abruzzo, Central Italy",
-    website: "https://www.patiniliberatore.gov.it",
+    website: "https://www.patiniliberatore.edu.it/",
     type: "Secondary School – Scientific, Technical & Vocational Education",
     studentCount: "~600 students",
     teacherCount: "~100 teachers",
     grantAllocated: "€23,580.00",
+    image: "/images/partners/italy.jpeg",
     summary:
       "Dynamic upper secondary institute in the mountain region of Abruzzo, Italy, featuring a sports-scientific high school, culinary collaborations, and technical-vocational diplomas.",
     about: [
@@ -283,6 +287,7 @@ export const partners: Partner[] = [
     studentCount: "750 secondary students (ages 14–19)",
     teacherCount: "80 teachers, psychologists & counselors",
     grantAllocated: "€24,455.00",
+    image: "/images/partners/poland.jpeg",
     summary:
       "Renowned Polish secondary school located near Kraków and the Beskidy mountains, celebrated for its high academic standards, active youth initiatives against food waste, and strong environmental awareness.",
     about: [
@@ -349,10 +354,11 @@ export const partners: Partner[] = [
     oid: "E10243348",
     city: "Skopje",
     region: "Skopski Region, The Republic of North Macedonia",
-    website: "https://erasmus-plus.ec.europa.eu/",
+    website: "https://www.arspublika.mk/",
     type: "Non-Governmental Organization / Sustainable Development Association",
     estDate: "11/11/2019",
     grantAllocated: "€20,125.00",
+    image: "/images/partners/ars-publika.png",
     summary:
       "Progressive non-governmental association based in Skopje, focusing on sustainable youth education, circular economy, biodiversity preservation, and digital project outcomes.",
     about: [
@@ -417,11 +423,12 @@ export const partners: Partner[] = [
     oid: "E10146522",
     city: "Metković",
     region: "Dubrovačko-neretvanska županija, Southern Croatia",
-    website: "http://gimnazija-metkovic.skole.hr/",
+    website: "https://gimnazija-metkovic.skole.hr/",
     type: "School/Institute/Educational center – General secondary education (Gymnasium)",
     studentCount: "330 students (ages 14–19)",
     teacherCount: "50 teachers",
     grantAllocated: "€23,360.00",
+    image: "/images/partners/croatia.jpeg",
     summary:
       "Prestigious state gymnasium situated in the fertile Neretva agricultural valley near Dubrovnik, distinguished by high STEM performance, Erasmus accreditation, and active environmental research.",
     about: [

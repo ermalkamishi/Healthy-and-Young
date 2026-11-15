@@ -30,6 +30,8 @@ type PageProps = {
   params: Promise<{ slug: string }>
 }
 
+export const instant = false
+
 export async function generateStaticParams() {
   return partners.map((p) => ({ slug: p.slug }))
 }
@@ -179,14 +181,7 @@ export default async function PartnerDetailPage({ params }: PageProps) {
                   {partner.city}, {partner.country}
                 </span>
               </div>
-              <div className="rounded-xl border border-white/15 bg-white/10 p-3.5 backdrop-blur-xs">
-                <span className="block text-[11px] font-medium text-white/70">
-                  Project Budget
-                </span>
-                <span className="mt-1 block text-xs font-bold text-mint">
-                  {partner.grantAllocated}
-                </span>
-              </div>
+
               <div className="rounded-xl border border-white/15 bg-white/10 p-3.5 backdrop-blur-xs">
                 <span className="block text-[11px] font-medium text-white/70">
                   Organization ID
@@ -213,6 +208,17 @@ export default async function PartnerDetailPage({ params }: PageProps) {
                 <h2 className="mt-2 text-xl font-bold text-ink sm:text-2xl">
                   Background &amp; Profile
                 </h2>
+                {partner.image && (
+                  <div className="relative mt-4 mb-5 h-56 sm:h-72 w-full overflow-hidden rounded-xl border border-line bg-mist shadow-xs">
+                    <Image
+                      src={partner.image}
+                      alt={partner.school}
+                      fill
+                      unoptimized
+                      className="object-cover object-center"
+                    />
+                  </div>
+                )}
                 <div className="mt-4 space-y-3.5 text-sm leading-[1.7] text-muted-foreground sm:text-base">
                   {partner.about.map((p, i) => (
                     <p key={i}>{p}</p>
@@ -260,72 +266,12 @@ export default async function PartnerDetailPage({ params }: PageProps) {
                   ))}
                 </ul>
               </Card>
-
-              {/* Hosted Mobility Card (if applicable) */}
-              {partner.hostedMobility && (
-                <Card className="border-brand/30 bg-[linear-gradient(180deg,#ffffff,#f2f8ff)] p-6 sm:p-8">
-                  <div className="flex items-center gap-2.5 text-xs font-black tracking-wider text-brand uppercase">
-                    <Plane className="size-4" />
-                    <span>Hosted Erasmus+ Mobility</span>
-                  </div>
-                  <h2 className="mt-2 text-xl font-bold text-ink sm:text-2xl">
-                    {partner.hostedMobility.title}
-                  </h2>
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    <Badge variant="outline" className="border-brand/40 bg-white text-brand">
-                      <Calendar className="mr-1 size-3" />
-                      {partner.hostedMobility.dates}
-                    </Badge>
-                    <Badge variant="outline" className="border-brand/40 bg-white text-ink-soft">
-                      <MapPin className="mr-1 size-3" />
-                      {partner.hostedMobility.venue}
-                    </Badge>
-                  </div>
-                  <p className="mt-3 text-sm font-medium text-ink">
-                    <strong className="text-brand">Thematic Focus:</strong>{" "}
-                    {partner.hostedMobility.focus}
-                  </p>
-
-                  <div className="mt-4 rounded-xl border border-line bg-white p-4">
-                    <h3 className="text-xs font-bold tracking-wider text-ink-muted uppercase">
-                      5-Day Program Outline:
-                    </h3>
-                    <ul className="mt-2.5 space-y-2 text-xs sm:text-sm text-ink-soft">
-                      {partner.hostedMobility.programSummary.map((item, i) => (
-                        <li key={i} className="flex items-start gap-2">
-                          <span className="mt-1 size-1.5 shrink-0 rounded-full bg-brand" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </Card>
-              )}
             </div>
 
             {/* Side Column */}
             <div className="space-y-6">
               {/* Key Persons */}
-              <Card className="p-6">
-                <div className="flex items-center gap-2 text-xs font-black tracking-wider text-leaf uppercase">
-                  <UserCheck className="size-4" />
-                  <span>Key Project Team</span>
-                </div>
-                <h3 className="mt-2 text-lg font-bold text-ink">
-                  Project Authors &amp; Leads
-                </h3>
-                <div className="mt-4 divide-y divide-line">
-                  {partner.keyPersons.map((person, i) => (
-                    <div key={i} className={i === 0 ? "pb-4" : "pt-4"}>
-                      <h4 className="text-sm font-bold text-ink">{person.name}</h4>
-                      <p className="text-xs font-semibold text-mint">{person.role}</p>
-                      <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">
-                        {person.bio}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </Card>
+
 
               {/* Campus Facilities */}
               <Card className="p-6">
@@ -395,3 +341,4 @@ export default async function PartnerDetailPage({ params }: PageProps) {
     </>
   )
 }
+
