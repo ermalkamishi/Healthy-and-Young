@@ -27,6 +27,7 @@ import {
 } from "@/components/ui/sheet"
 import { navItems, partners, site } from "@/lib/site-data"
 import euBadge from "@/assets/images/eu-cofunded.jpg"
+import logoImg from "@/assets/images/logo.png"
 
 /** Every section id the scroll-spy watches, excluding the page top. */
 const watchedIds = navItems
@@ -150,14 +151,26 @@ export function SiteHeader() {
       <div className="mx-auto flex min-h-[65px] max-w-[1460px] items-center justify-between gap-4 px-4 py-2 sm:px-6">
         <Link
           href="/"
-          className="rounded-md leading-[1.05] whitespace-nowrap outline-none focus-visible:ring-3 focus-visible:ring-white/50"
+          className="group flex items-center gap-2.5 sm:gap-3 rounded-md leading-[1.05] whitespace-nowrap outline-none focus-visible:ring-3 focus-visible:ring-white/50"
         >
-          <span className="block text-[19px] font-extrabold tracking-tight sm:text-[21px]">
-            {site.name}
+          <span className="relative grid size-10 sm:size-11 shrink-0 place-items-center overflow-hidden rounded-full border-2 border-white/80 bg-white shadow-xs transition-transform duration-200 group-hover:scale-105">
+            <Image
+              src={logoImg}
+              alt="Healthy and Young Logo"
+              width={44}
+              height={44}
+              priority
+              className="size-full object-contain p-0.5"
+            />
           </span>
-          <span className="mt-1.5 block text-xs font-medium text-white/90">
-            {site.tagline}
-          </span>
+          <div>
+            <span className="block text-[19px] font-extrabold tracking-tight sm:text-[21px]">
+              {site.name}
+            </span>
+            <span className="mt-1 block text-xs font-medium text-white/90">
+              {site.tagline}
+            </span>
+          </div>
         </Link>
 
         {/* Desktop navigation */}
@@ -286,12 +299,25 @@ export function SiteHeader() {
             className="w-[88%] gap-0 border-l-0 bg-white p-0 sm:max-w-sm overflow-y-auto"
           >
             <SheetHeader className="bg-[linear-gradient(110deg,var(--color-brand-strong),var(--color-brand-deep))] px-5 pt-5 pb-4 text-white">
-              <SheetTitle className="text-lg font-extrabold text-white">
-                {site.name}
-              </SheetTitle>
-              <SheetDescription className="text-white/85">
-                {site.tagline} {site.period}
-              </SheetDescription>
+              <div className="flex items-center gap-3">
+                <span className="grid size-11 shrink-0 place-items-center overflow-hidden rounded-full border-2 border-white/80 bg-white shadow-xs">
+                  <Image
+                    src={logoImg}
+                    alt="Healthy and Young Logo"
+                    width={44}
+                    height={44}
+                    className="size-full object-contain p-0.5"
+                  />
+                </span>
+                <div>
+                  <SheetTitle className="text-lg font-extrabold text-white">
+                    {site.name}
+                  </SheetTitle>
+                  <SheetDescription className="text-white/85">
+                    {site.tagline} {site.period}
+                  </SheetDescription>
+                </div>
+              </div>
             </SheetHeader>
             <nav aria-label="Mobile" className="flex flex-col gap-1 p-3">
               {navItems.map((item) => {
