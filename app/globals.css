@@ -1,26 +1,155 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
+/*
+ * Healthy and Young — design tokens
+ * Palette taken from the approved prototype (app/test.html).
+ */
+/* 
+ Project Coordinator */
+/* 
+Adÿle Mermercÿ Anatolian High School,
+
+Turkey
+
+Project Partners
+
+IISS “Patini-Liberatore-De Panfilis”, ITALY
+Zespol Szkol Ogolnoksztalcacych im.
+Stefana Zeromskiego w Bielsku-Bialej,
+
+POLAND
+
+Assosiation for Sustainable Development
+ARS PUBLICA, NORTH MACEDONIA
+Gimnazija Metkovic, CROATIA */
 @theme inline {
+  /* Brand palette */
+  --color-ink: #0b3478;
+  /* headings & body ink */
+  --color-ink-soft: #4b6794;
+  /* secondary copy */
+  --color-ink-muted: #57769b;
+  /* tile descriptions */
+  --color-brand: #0b4fbe;
+  /* primary buttons, icons */
+  --color-brand-strong: #0752ae;
+  /* header gradient start */
+  --color-brand-deep: #043274;
+  /* header gradient end */
+  --color-navy: #063d89;
+  /* footer */
+  --color-hero-title: #0d4493;
+  --color-sky: #b9e0ff;
+  /* active nav pill */
+  --color-sky-soft: #e1efff;
+  /* tile arrow chip */
+  --color-mist: #eaf5ff;
+  /* details band */
+  --color-frost: #f2f8ff;
+  /* notice background */
+  --color-line: #d6e8f5;
+  /* card borders */
+  --color-mint: #39c476;
+  /* Erasmus+ CTA */
+  --color-mint-bar: #47bf7c;
+  /* heading accent bar */
+  --color-leaf: #26885d;
+  /* section labels */
+  --color-young: #329f78;
+  /* "Young" in hero title */
+
+  /* shadcn semantic tokens */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, Arial, Helvetica,
+    sans-serif;
+  --font-heading: var(--font-inter), ui-sans-serif, system-ui, Arial,
+    Helvetica, sans-serif;
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* Shadows tuned to the prototype */
+  --shadow-tile: 0 6px 20px #0d518b19;
+  --shadow-panel: 0 8px 25px #174e8619;
+  --shadow-header: 0 2px 7px #064c8a23;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --background: #f6faff;
+  --foreground: #0b3478;
+  --card: #ffffff;
+  --card-foreground: #0b3478;
+  --popover: #ffffff;
+  --popover-foreground: #0b3478;
+  --primary: #0b4fbe;
+  --primary-foreground: #ffffff;
+  --secondary: #e1efff;
+  --secondary-foreground: #0c58b9;
+  --muted: #eef5fc;
+  --muted-foreground: #527195;
+  --accent: #b9e0ff;
+  --accent-foreground: #084c9d;
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: #d9e8f4;
+  --input: #d9e8f4;
+  --ring: #0b4fbe;
+  --radius: 0.625rem;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply font-sans;
+    scroll-behavior: smooth;
+    /* keep anchored sections clear of the sticky header */
+    scroll-padding-top: 5.5rem;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  ::selection {
+    background: #b9e0ff;
+    color: #062a63;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
