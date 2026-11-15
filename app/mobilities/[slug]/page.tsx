@@ -42,6 +42,8 @@ type Props = {
   params: Promise<{ slug: string }>
 }
 
+export const instant = false
+
 export function generateStaticParams() {
   return mobilitiesList.map((m) => ({
     slug: m.id,
@@ -131,13 +133,12 @@ export default async function MobilityDetailPage({ params }: Props) {
             {/* Badges & Meta strip */}
             <div className="mt-8 flex flex-wrap items-center gap-2.5">
               <span
-                className={`rounded-md px-3 py-1 text-xs font-extrabold uppercase tracking-wider text-white shadow-xs ${
-                  event.type === "LTTA"
-                    ? "bg-mint"
-                    : event.type === "TPM"
+                className={`rounded-md px-3 py-1 text-xs font-extrabold uppercase tracking-wider text-white shadow-xs ${event.type === "LTTA"
+                  ? "bg-mint"
+                  : event.type === "TPM"
                     ? "bg-brand"
                     : "bg-amber-600"
-                }`}
+                  }`}
               >
                 {event.code}
               </span>
@@ -257,31 +258,7 @@ export default async function MobilityDetailPage({ params }: Props) {
           {/* ======================================================== */}
           <Card className="overflow-hidden rounded-2xl border-2 border-brand/20 bg-white shadow-md">
             {/* Header of Media & Documentation Card */}
-            <div className="border-b border-line bg-sky-soft/40 px-6 py-4">
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <div className="flex items-center gap-2.5">
-                  <span className="grid size-9 place-items-center rounded-xl bg-brand text-white shadow-2xs">
-                    <FileText className="size-4" />
-                  </span>
-                  <div>
-                    <h2 className="text-base font-bold text-ink sm:text-lg">
-                      Activity Report, Photographs &amp; Documentation
-                    </h2>
-                    <p className="text-xs text-ink-muted">
-                      Authentic records, participant testimonials, and official photos for {event.code}
-                    </p>
-                  </div>
-                </div>
 
-                <Badge
-                  variant="outline"
-                  className="border-brand/30 bg-white text-xs font-bold text-brand"
-                >
-                  <Camera className="size-3.5" />
-                  Media &amp; Report Section
-                </Badge>
-              </div>
-            </div>
 
             <div className="p-6 sm:p-8">
               {event.article ? (

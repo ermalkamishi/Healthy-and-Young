@@ -459,7 +459,7 @@ export function MobilitiesClient() {
                           <div className="flex items-center justify-between text-xs font-bold text-ink">
                             <span className="flex items-center gap-1.5 text-brand">
                               <Camera className="size-3.5" />
-                              Photo Gallery ({gallery.length} Photographs)
+                              Photo Gallery
                             </span>
                             <Link
                               href={`/mobilities/${event.id}`}

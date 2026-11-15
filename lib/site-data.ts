@@ -76,11 +76,12 @@ export const navItems: NavItem[] = [
   },
   {
     label: "Activities",
-    href: "/#activities",
+    href: "/activities",
     sections: ["activities", "competitions", "gardens", "cooking"],
+    isDropdown: true,
   },
-  { label: "Results", href: "/#results", sections: ["results"] },
-  { label: "Gallery", href: "/#gallery", sections: ["gallery"] },
+  { label: "Results", href: "/results", sections: ["results"] },
+  { label: "Gallery", href: "/gallery", sections: ["gallery"] },
 ]
 
 export type KeyPerson = {
@@ -516,49 +517,35 @@ export const tiles: Tile[] = [
   {
     title: "Activities",
     description: "All project activities, initiatives and events.",
-    href: "/#activities",
+    href: "/activities",
     image: activitiesImg,
     icon: Lightbulb,
   },
   {
     title: "E-Book",
     description: "Our educational e-book on healthy living.",
-    href: "/#results",
+    href: "/results",
     image: ebookImg,
     icon: BookOpen,
   },
   {
-    title: "Competition Videos",
-    description: "Creative videos by our students on healthy living.",
-    href: "/#competitions",
-    image: competitionsImg,
-    icon: Play,
-  },
-  {
     title: "School Gardens",
     description: "Growing a greener and healthier future.",
-    href: "/#gardens",
+    href: "/activities/school-gardens",
     image: gardensImg,
     icon: Sprout,
   },
   {
     title: "Cooking Workshops",
     description: "Healthy recipes for a better life.",
-    href: "/#cooking",
+    href: "/activities/cooking-workshops",
     image: cookingImg,
     icon: CookingPot,
   },
   {
-    title: "National Activities",
-    description: "Local events in partner countries.",
-    href: "/#national",
-    image: nationalImg,
-    icon: Megaphone,
-  },
-  {
     title: "Gallery",
     description: "Photos from our project journey.",
-    href: "/#gallery",
+    href: "/gallery",
     image: galleryImg,
     icon: Images,
   },
@@ -602,12 +589,6 @@ export const detailSections: DetailSection[] = [
       "A dedicated space for the final e-book, educational materials and two-year PowerPoint presentation.",
   },
   {
-    id: "competitions",
-    title: "Competition Videos",
-    description:
-      "Watch and discover student-created competition videos and highlights.",
-  },
-  {
     id: "gardens",
     title: "School Gardens",
     description:
@@ -618,12 +599,6 @@ export const detailSections: DetailSection[] = [
     title: "Cooking Workshops",
     description:
       "Photographs, recipes and learning outcomes from healthy cooking workshops.",
-  },
-  {
-    id: "national",
-    title: "National Activities",
-    description:
-      "Activities carried out locally by the participating schools and organisations.",
   },
   {
     id: "gallery",

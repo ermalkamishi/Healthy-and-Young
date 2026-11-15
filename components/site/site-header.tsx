@@ -4,7 +4,15 @@ import * as React from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { ArrowUpRight, ChevronDown, ChevronRight, Menu } from "lucide-react"
+import {
+  ArrowUpRight,
+  ChevronDown,
+  ChevronRight,
+  GraduationCap,
+  Menu,
+  Sprout,
+  UtensilsCrossed,
+} from "lucide-react"
 import { cn } from "cn"
 
 import { Button } from "@/components/ui/button"
@@ -112,21 +120,30 @@ export function SiteHeader() {
   const [open, setOpen] = React.useState(false)
   const [partnersOpen, setPartnersOpen] = React.useState(false)
   const [mobilitiesOpen, setMobilitiesOpen] = React.useState(false)
+  const [activitiesOpen, setActivitiesOpen] = React.useState(false)
   const [mobilePartnersOpen, setMobilePartnersOpen] = React.useState(false)
   const [mobileMobilitiesOpen, setMobileMobilitiesOpen] = React.useState(false)
+  const [mobileActivitiesOpen, setMobileActivitiesOpen] = React.useState(false)
 
   const isHome = pathname === "/"
   const isPartnersActive =
     pathname.startsWith("/partners") || (isHome && active === "partners")
   const isMobilitiesActive =
     pathname.startsWith("/mobilities") || (isHome && active === "mobilities")
+  const isActivitiesActive =
+    pathname.startsWith("/activities") || (isHome && active === "activities")
+  const isResultsActive =
+    pathname.startsWith("/results") || (isHome && active === "results")
+  const isGalleryActive =
+    pathname.startsWith("/gallery") || (isHome && active === "gallery")
 
   const isActive = (item: (typeof navItems)[number]) => {
     if (item.href === "/about") return pathname === "/about"
-    if (item.label === "Partners") return isPartnersActive
-    if (item.label === "Mobilities") return isMobilitiesActive
-    if (item.href === "/mobilities") return isMobilitiesActive
-    if (item.href === "/partners") return isPartnersActive
+    if (item.label === "Partners" || item.href === "/partners") return isPartnersActive
+    if (item.label === "Mobilities" || item.href === "/mobilities") return isMobilitiesActive
+    if (item.label === "Activities" || item.href === "/activities") return isActivitiesActive
+    if (item.label === "Results" || item.href === "/results") return isResultsActive
+    if (item.label === "Gallery" || item.href === "/gallery") return isGalleryActive
     if (!isHome) return false
     return item.sections.includes(active)
   }
@@ -396,6 +413,126 @@ export function SiteHeader() {
               )
             }
 
+            if (item.label === "Activities") {
+              return (
+                <DropdownMenu
+                  key={item.label}
+                  open={activitiesOpen}
+                  onOpenChange={setActivitiesOpen}
+                >
+                  <DropdownMenuTrigger asChild>
+                    <button
+                      type="button"
+                      aria-current={isActivitiesActive ? "location" : undefined}
+                      className={cn(
+                        "group inline-flex items-center gap-1 rounded-[10px] px-3 py-2.5 text-[13px] font-semibold text-white transition-colors outline-none hover:bg-sky hover:text-accent-foreground focus-visible:ring-3 focus-visible:ring-white/50 xl:px-3.5",
+                        isActivitiesActive && "bg-sky text-accent-foreground"
+                      )}
+                    >
+                      <span>{item.label}</span>
+                      <ChevronDown
+                        className={cn(
+                          "size-3.5 transition-transform duration-200",
+                          activitiesOpen && "rotate-180"
+                        )}
+                      />
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent
+                    align="start"
+                    sideOffset={8}
+                    className="w-80 rounded-xl border border-line bg-white p-2 shadow-xl"
+                  >
+                    <div className="px-2.5 py-1.5 text-[10px] font-black uppercase text-brand tracking-wider">
+                      Project Activity Tracks
+                    </div>
+
+                    <DropdownMenuItem asChild>
+                      <Link
+                        href="/activities/school-gardens"
+                        onClick={() => setActivitiesOpen(false)}
+                        className="flex cursor-pointer items-start gap-2.5 rounded-lg px-2.5 py-2.5 text-xs transition-colors hover:bg-mist focus:bg-mist"
+                      >
+                        <span className="grid size-7 shrink-0 place-items-center rounded-lg bg-emerald-100 text-emerald-800">
+                          <Sprout className="size-4" />
+                        </span>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center justify-between gap-1.5">
+                            <span className="font-bold text-ink">
+                              School Gardens
+                            </span>
+
+                          </div>
+                          <div className="text-[10px] text-ink-muted truncate">
+                            Organic hobby gardens &amp; greenhouses
+                          </div>
+                        </div>
+                      </Link>
+                    </DropdownMenuItem>
+
+                    <DropdownMenuItem asChild>
+                      <Link
+                        href="/activities/expert-seminars"
+                        onClick={() => setActivitiesOpen(false)}
+                        className="flex cursor-pointer items-start gap-2.5 rounded-lg px-2.5 py-2.5 text-xs transition-colors hover:bg-mist focus:bg-mist"
+                      >
+                        <span className="grid size-7 shrink-0 place-items-center rounded-lg bg-blue-100 text-blue-800">
+                          <GraduationCap className="size-4" />
+                        </span>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center justify-between gap-1.5">
+                            <span className="font-bold text-ink">
+                              Expert Seminars
+                            </span>
+
+                          </div>
+                          <div className="text-[10px] text-ink-muted truncate">
+                            Clinical dietitians &amp; nutritionists
+                          </div>
+                        </div>
+                      </Link>
+                    </DropdownMenuItem>
+
+                    <DropdownMenuItem asChild>
+                      <Link
+                        href="/activities/cooking-workshops"
+                        onClick={() => setActivitiesOpen(false)}
+                        className="flex cursor-pointer items-start gap-2.5 rounded-lg px-2.5 py-2.5 text-xs transition-colors hover:bg-mist focus:bg-mist"
+                      >
+                        <span className="grid size-7 shrink-0 place-items-center rounded-lg bg-amber-100 text-amber-800">
+                          <UtensilsCrossed className="size-4" />
+                        </span>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center justify-between gap-1.5">
+                            <span className="font-bold text-ink">
+                              Cooking Workshops
+                            </span>
+
+                          </div>
+                          <div className="text-[10px] text-ink-muted truncate">
+                            Vocational gastronomy &amp; pizza making
+                          </div>
+                        </div>
+                      </Link>
+                    </DropdownMenuItem>
+
+                    <DropdownMenuSeparator className="my-1.5 bg-line" />
+
+                    <DropdownMenuItem asChild>
+                      <Link
+                        href="/activities"
+                        onClick={() => setActivitiesOpen(false)}
+                        className="flex cursor-pointer items-center justify-between rounded-lg px-2.5 py-2 text-xs font-semibold text-brand transition-colors hover:bg-sky-soft hover:text-brand"
+                      >
+                        <span>View All Activities</span>
+                        <ChevronRight className="size-3.5" />
+                      </Link>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              )
+            }
+
             const isExternalOrPage = !item.href.startsWith("/#")
             if (isExternalOrPage) {
               return (
@@ -598,6 +735,79 @@ export function SiteHeader() {
                             className="mt-2 flex items-center justify-between rounded-lg px-3 py-2 text-xs font-bold text-brand transition-colors hover:bg-sky-soft"
                           >
                             <span>View All Mobilities &amp; TPMs</span>
+                            <ChevronRight className="size-3.5" />
+                          </Link>
+                        </div>
+                      )}
+                    </div>
+                  )
+                }
+
+                if (item.label === "Activities") {
+                  return (
+                    <div key={item.label} className="space-y-1">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setMobileActivitiesOpen(!mobileActivitiesOpen)
+                        }
+                        aria-expanded={mobileActivitiesOpen}
+                        className={cn(
+                          "flex w-full items-center justify-between rounded-[10px] px-4 py-3 text-[15px] font-semibold transition-colors outline-none hover:bg-mist",
+                          isActivitiesActive
+                            ? "bg-sky text-accent-foreground"
+                            : "text-ink"
+                        )}
+                      >
+                        <span>{item.label}</span>
+                        <ChevronDown
+                          className={cn(
+                            "size-4 transition-transform duration-200",
+                            mobileActivitiesOpen && "rotate-180"
+                          )}
+                        />
+                      </button>
+                      {mobileActivitiesOpen && (
+                        <div className="my-1 ml-3 space-y-1 border-l-2 border-brand/30 pl-2">
+                          <Link
+                            href="/activities/school-gardens"
+                            onClick={() => setOpen(false)}
+                            className="flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs font-semibold text-ink transition-colors hover:bg-mist"
+                          >
+                            <span className="grid size-5 shrink-0 place-items-center rounded-md bg-emerald-100 text-emerald-800">
+                              <Sprout className="size-3.5" />
+                            </span>
+                            <span className="truncate">School Gardens</span>
+                          </Link>
+
+                          <Link
+                            href="/activities/expert-seminars"
+                            onClick={() => setOpen(false)}
+                            className="flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs font-semibold text-ink transition-colors hover:bg-mist"
+                          >
+                            <span className="grid size-5 shrink-0 place-items-center rounded-md bg-blue-100 text-blue-800">
+                              <GraduationCap className="size-3.5" />
+                            </span>
+                            <span className="truncate">Expert Seminars</span>
+                          </Link>
+
+                          <Link
+                            href="/activities/cooking-workshops"
+                            onClick={() => setOpen(false)}
+                            className="flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs font-semibold text-ink transition-colors hover:bg-mist"
+                          >
+                            <span className="grid size-5 shrink-0 place-items-center rounded-md bg-amber-100 text-amber-800">
+                              <UtensilsCrossed className="size-3.5" />
+                            </span>
+                            <span className="truncate">Cooking Workshops</span>
+                          </Link>
+
+                          <Link
+                            href="/activities"
+                            onClick={() => setOpen(false)}
+                            className="mt-2 flex items-center justify-between rounded-lg px-3 py-2 text-xs font-bold text-brand transition-colors hover:bg-sky-soft"
+                          >
+                            <span>View All Activities</span>
                             <ChevronRight className="size-3.5" />
                           </Link>
                         </div>
