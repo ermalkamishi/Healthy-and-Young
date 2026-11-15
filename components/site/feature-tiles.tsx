@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 import { ChevronRight } from "lucide-react"
 
 import { tiles } from "@/lib/site-data"
@@ -12,7 +13,7 @@ export function FeatureTiles() {
       <ul className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-3.5 min-[1100px]:grid-cols-5">
         {tiles.map(({ title, description, href, image, icon: Icon }) => (
           <li key={title}>
-            <a
+            <Link
               href={href}
               className="group flex h-full flex-col overflow-hidden rounded-[13px] border border-[#edf3f8] bg-white shadow-tile transition-all duration-200 outline-none hover:-translate-y-[3px] hover:shadow-[0_12px_28px_#0d518b26] focus-visible:ring-3 focus-visible:ring-ring/40"
             >
@@ -45,7 +46,7 @@ export function FeatureTiles() {
                   <ChevronRight className="size-3.5 sm:size-4" strokeWidth={2.75} />
                 </span>
               </div>
-            </a>
+            </Link>
           </li>
         ))}
       </ul>

@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -60,10 +61,10 @@ export function Hero() {
               asChild
               className="h-auto rounded-[10px] border-[#1153b8] bg-brand px-5 py-3.5 text-[13px] font-extrabold text-white shadow-[0_6px_16px_#0b4fbe33] hover:bg-brand-strong"
             >
-              <a href="#overview">
+              <Link href="/about">
                 Discover Our Project
                 <ArrowRight data-icon="inline-end" className="size-4" />
-              </a>
+              </Link>
             </Button>
             <Button
               asChild

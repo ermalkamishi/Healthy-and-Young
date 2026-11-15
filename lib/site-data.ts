@@ -30,7 +30,6 @@ export const site = {
   period: "2024 – 2026",
   projectNumber: "2024-1-TR01-KA220-SCH-000244381",
   acronym: "HAY",
-  grantTotal: "€120,000.00",
   nationalAgency:
     "TR01 - The Center for European Union Education and Youth Programmes (Turkish National Agency)",
   description:
@@ -62,7 +61,7 @@ export type NavItem = {
 
 export const navItems: NavItem[] = [
   { label: "Home", href: "/#top", sections: ["top"] },
-  { label: "About", href: "/#overview", sections: ["overview"] },
+  { label: "About", href: "/about", sections: ["overview"] },
   {
     label: "Partners",
     href: "/#partners",
@@ -113,7 +112,6 @@ export type Partner = {
   studentCount?: string
   teacherCount?: string
   image?: string
-  grantAllocated: string
   summary: string
   about: string[]
   facilities: string[]
@@ -140,7 +138,6 @@ export const partners: Partner[] = [
     estDate: "01/09/1990",
     studentCount: "548 students (ages 14–18, 5-year curriculum)",
     teacherCount: "40 teachers",
-    grantAllocated: "€28,480.00",
     image: "/images/partners/turkey.jpeg",
     summary:
       "Leading state Anatolian high school in Istanbul and the Project Coordinator for the Healthy and Young Erasmus+ project, managing cross-country cooperation, organic farm-to-fork practices, and youth well-being initiatives.",
@@ -214,7 +211,6 @@ export const partners: Partner[] = [
     type: "Secondary School – Scientific, Technical & Vocational Education",
     studentCount: "~600 students",
     teacherCount: "~100 teachers",
-    grantAllocated: "€23,580.00",
     image: "/images/partners/italy.jpeg",
     summary:
       "Dynamic upper secondary institute in the mountain region of Abruzzo, Italy, featuring a sports-scientific high school, culinary collaborations, and technical-vocational diplomas.",
@@ -286,7 +282,6 @@ export const partners: Partner[] = [
     type: "School/Institute/Educational center – General secondary education",
     studentCount: "750 secondary students (ages 14–19)",
     teacherCount: "80 teachers, psychologists & counselors",
-    grantAllocated: "€24,455.00",
     image: "/images/partners/poland.jpeg",
     summary:
       "Renowned Polish secondary school located near Kraków and the Beskidy mountains, celebrated for its high academic standards, active youth initiatives against food waste, and strong environmental awareness.",
@@ -357,7 +352,6 @@ export const partners: Partner[] = [
     website: "https://www.arspublika.mk/",
     type: "Non-Governmental Organization / Sustainable Development Association",
     estDate: "11/11/2019",
-    grantAllocated: "€20,125.00",
     image: "/images/partners/ars-publika.png",
     summary:
       "Progressive non-governmental association based in Skopje, focusing on sustainable youth education, circular economy, biodiversity preservation, and digital project outcomes.",
@@ -427,7 +421,6 @@ export const partners: Partner[] = [
     type: "School/Institute/Educational center – General secondary education (Gymnasium)",
     studentCount: "330 students (ages 14–19)",
     teacherCount: "50 teachers",
-    grantAllocated: "€23,360.00",
     image: "/images/partners/croatia.jpeg",
     summary:
       "Prestigious state gymnasium situated in the fertile Neretva agricultural valley near Dubrovnik, distinguished by high STEM performance, Erasmus accreditation, and active environmental research.",
@@ -499,7 +492,7 @@ export const tiles: Tile[] = [
   {
     title: "Project Overview",
     description: "Goals, theme and expected results of our Erasmus+ project.",
-    href: "/#overview",
+    href: "/about",
     image: overviewImg,
     icon: ClipboardList,
   },

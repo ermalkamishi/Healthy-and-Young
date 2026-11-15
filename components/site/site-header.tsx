@@ -118,6 +118,7 @@ export function SiteHeader() {
     pathname.startsWith("/partners") || (isHome && ["partners", "mobilities"].includes(active))
 
   const isActive = (item: (typeof navItems)[number]) => {
+    if (item.href === "/about") return pathname === "/about"
     if (item.isDropdown) return isPartnersActive
     if (!isHome) return false
     return item.sections.includes(active)
@@ -264,6 +265,23 @@ export function SiteHeader() {
               )
             }
 
+            const isExternalOrPage = !item.href.startsWith("/#")
+            if (isExternalOrPage) {
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  aria-current={isActive(item) ? "location" : undefined}
+                  className={cn(
+                    "rounded-[10px] px-3 py-2.5 text-[13px] font-semibold text-white transition-colors outline-none hover:bg-sky hover:text-accent-foreground focus-visible:ring-3 focus-visible:ring-white/50 xl:px-3.5",
+                    isActive(item) && "bg-sky text-accent-foreground"
+                  )}
+                >
+                  {item.label}
+                </Link>
+              )
+            }
+
             return (
               <a
                 key={item.href}
@@ -365,6 +383,24 @@ export function SiteHeader() {
                         </div>
                       )}
                     </div>
+                  )
+                }
+
+                const isExternalOrPage = !item.href.startsWith("/#")
+                if (isExternalOrPage) {
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      aria-current={isActive(item) ? "location" : undefined}
+                      onClick={() => setOpen(false)}
+                      className={cn(
+                        "rounded-[10px] px-4 py-3 text-[15px] font-semibold text-ink transition-colors outline-none hover:bg-mist focus-visible:ring-3 focus-visible:ring-ring/40",
+                        isActive(item) && "bg-sky text-accent-foreground"
+                      )}
+                    >
+                      {item.label}
+                    </Link>
                   )
                 }
 

@@ -25,6 +25,7 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { partners, site } from "@/lib/site-data"
+import heroImg from "@/assets/images/hero.jpg"
 
 type PageProps = {
   params: Promise<{ slug: string }>
@@ -65,10 +66,25 @@ export default async function PartnerDetailPage({ params }: PageProps) {
       <SiteHeader />
       <main className="flex-1 bg-background">
         {/* Breadcrumb & Hero Banner */}
-        <section className="relative isolate overflow-hidden bg-[linear-gradient(110deg,#0752ae,#043274)] px-4 py-8 text-white sm:px-8 sm:py-12">
+        <section className="relative isolate overflow-hidden px-4 py-8 text-white sm:px-8 sm:py-12">
+          {/* Background photo */}
+          <Image
+            src={heroImg}
+            alt=""
+            fill
+            priority
+            placeholder="blur"
+            sizes="100vw"
+            className="-z-30 object-cover object-[70%_center] sm:object-right"
+          />
+          {/* Gradient overlays ensuring great text contrast while keeping youth imagery visible */}
           <div
             aria-hidden
-            className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top_right,rgba(67,191,123,0.18),transparent_60%)]"
+            className="absolute inset-0 -z-20 bg-[linear-gradient(105deg,#0752aef0_0%,#053f8be6_45%,#043274d4_75%,#043274aa_100%)]"
+          />
+          <div
+            aria-hidden
+            className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top_right,rgba(67,191,123,0.22),transparent_60%)]"
           />
           <div className="mx-auto max-w-[1200px]">
             {/* Breadcrumb navigation */}
