@@ -64,11 +64,16 @@ export const navItems: NavItem[] = [
   { label: "About", href: "/about", sections: ["overview"] },
   {
     label: "Partners",
-    href: "/#partners",
+    href: "/partners",
     sections: ["partners"],
     isDropdown: true,
   },
-  { label: "Mobilities", href: "/#mobilities", sections: ["mobilities"] },
+  {
+    label: "Mobilities",
+    href: "/mobilities",
+    sections: ["mobilities"],
+    isDropdown: true,
+  },
   {
     label: "Activities",
     href: "/#activities",
@@ -76,8 +81,6 @@ export const navItems: NavItem[] = [
   },
   { label: "Results", href: "/#results", sections: ["results"] },
   { label: "Gallery", href: "/#gallery", sections: ["gallery"] },
-  { label: "News", href: "/#national", sections: ["national"] },
-  { label: "Contact", href: "/#contact", sections: ["disclaimer", "contact"] },
 ]
 
 export type KeyPerson = {
@@ -499,14 +502,14 @@ export const tiles: Tile[] = [
   {
     title: "Project Partners",
     description: "Meet our schools and partner countries.",
-    href: "/#partners",
+    href: "/partners",
     image: partnersImg,
     icon: Users,
   },
   {
     title: "LTTA & TPM Meetings",
     description: "Transnational meetings and learning activities.",
-    href: "/#mobilities",
+    href: "/mobilities",
     image: meetingsImg,
     icon: CalendarDays,
   },
@@ -647,3 +650,6 @@ export const legal = [
     text: "Funded by the European Union. Views and opinions expressed are those of the author(s) only and do not necessarily reflect those of the European Union or the granting authority. Neither the European Union nor the granting authority can be held responsible for them.",
   },
 ] as const
+
+export * from "./mobilities-data"
+

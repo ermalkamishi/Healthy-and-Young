@@ -25,7 +25,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
-import { navItems, partners, site } from "@/lib/site-data"
+import { navItems, partners, site, lttasList, tpmsList } from "@/lib/site-data"
 import euBadge from "@/assets/images/eu-cofunded.jpg"
 import logoImg from "@/assets/images/logo.png"
 
@@ -111,15 +111,22 @@ export function SiteHeader() {
   const pathname = usePathname()
   const [open, setOpen] = React.useState(false)
   const [partnersOpen, setPartnersOpen] = React.useState(false)
+  const [mobilitiesOpen, setMobilitiesOpen] = React.useState(false)
   const [mobilePartnersOpen, setMobilePartnersOpen] = React.useState(false)
+  const [mobileMobilitiesOpen, setMobileMobilitiesOpen] = React.useState(false)
 
   const isHome = pathname === "/"
   const isPartnersActive =
-    pathname.startsWith("/partners") || (isHome && ["partners", "mobilities"].includes(active))
+    pathname.startsWith("/partners") || (isHome && active === "partners")
+  const isMobilitiesActive =
+    pathname.startsWith("/mobilities") || (isHome && active === "mobilities")
 
   const isActive = (item: (typeof navItems)[number]) => {
     if (item.href === "/about") return pathname === "/about"
-    if (item.isDropdown) return isPartnersActive
+    if (item.label === "Partners") return isPartnersActive
+    if (item.label === "Mobilities") return isMobilitiesActive
+    if (item.href === "/mobilities") return isMobilitiesActive
+    if (item.href === "/partners") return isPartnersActive
     if (!isHome) return false
     return item.sections.includes(active)
   }
@@ -177,7 +184,7 @@ export function SiteHeader() {
         {/* Desktop navigation */}
         <nav aria-label="Main" className="hidden items-center gap-0.5 lg:flex">
           {navItems.map((item) => {
-            if (item.isDropdown) {
+            if (item.label === "Partners") {
               return (
                 <DropdownMenu
                   key={item.label}
@@ -249,14 +256,138 @@ export function SiteHeader() {
                     <DropdownMenuSeparator className="my-1 bg-line" />
                     <DropdownMenuItem asChild>
                       <Link
-                        href="/#partners"
-                        onClick={(e) => {
-                          setPartnersOpen(false)
-                          handleNavClick(e, "/#partners")
-                        }}
+                        href="/partners"
+                        onClick={() => setPartnersOpen(false)}
                         className="flex cursor-pointer items-center justify-between rounded-lg px-2.5 py-2 text-xs font-semibold text-brand transition-colors hover:bg-sky-soft hover:text-brand"
                       >
-                        <span>View Partners Overview Section</span>
+                        <span>View All Partners</span>
+                        <ChevronRight className="size-3.5" />
+                      </Link>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              )
+            }
+
+            if (item.label === "Mobilities") {
+              return (
+                <DropdownMenu
+                  key={item.label}
+                  open={mobilitiesOpen}
+                  onOpenChange={setMobilitiesOpen}
+                >
+                  <DropdownMenuTrigger asChild>
+                    <button
+                      type="button"
+                      aria-current={isMobilitiesActive ? "location" : undefined}
+                      className={cn(
+                        "group inline-flex items-center gap-1 rounded-[10px] px-3 py-2.5 text-[13px] font-semibold text-white transition-colors outline-none hover:bg-sky hover:text-accent-foreground focus-visible:ring-3 focus-visible:ring-white/50 xl:px-3.5",
+                        isMobilitiesActive && "bg-sky text-accent-foreground"
+                      )}
+                    >
+                      <span>{item.label}</span>
+                      <ChevronDown
+                        className={cn(
+                          "size-3.5 transition-transform duration-200",
+                          mobilitiesOpen && "rotate-180"
+                        )}
+                      />
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent
+                    align="start"
+                    sideOffset={8}
+                    className="w-96 max-h-[85vh] overflow-y-auto rounded-xl border border-line bg-white p-2 shadow-xl"
+                  >
+                    {/* LTTAs Header */}
+                    <div className="flex items-center justify-between px-2 py-1.5 text-[11px] font-black tracking-wider text-leaf uppercase">
+                      <span>LTTAs (Learning &amp; Training)</span>
+                      <span className="text-[10px] font-bold text-ink-muted">5 Mobilities</span>
+                    </div>
+                    {lttasList.map((ltta) => (
+                      <DropdownMenuItem key={ltta.id} asChild>
+                        <Link
+                          href={`/mobilities/${ltta.id}`}
+                          onClick={() => setMobilitiesOpen(false)}
+                          className="flex cursor-pointer items-start gap-2.5 rounded-lg px-2.5 py-2 text-xs transition-colors hover:bg-mist focus:bg-mist"
+                        >
+                          <span className="grid size-6 shrink-0 place-items-center overflow-hidden rounded-full border border-line bg-white shadow-2xs mt-0.5">
+                            <Image
+                              src={`/flags/${ltta.countryCode}.svg`}
+                              alt=""
+                              width={24}
+                              height={24}
+                              unoptimized
+                              className="size-full object-cover"
+                            />
+                          </span>
+                          <div className="min-w-0 flex-1">
+                            <div className="flex items-center justify-between gap-1">
+                              <span className="font-bold text-ink truncate">
+                                {ltta.code}: {ltta.city}
+                              </span>
+                              <span className="rounded bg-mint/15 px-1.5 py-0.5 text-[9px] font-bold text-leaf shrink-0">
+                                {ltta.format.split(" ")[0]}
+                              </span>
+                            </div>
+                            <div className="text-[10px] text-ink-muted truncate">
+                              {ltta.title}
+                            </div>
+                          </div>
+                        </Link>
+                      </DropdownMenuItem>
+                    ))}
+
+                    <DropdownMenuSeparator className="my-1.5 bg-line" />
+
+                    {/* TPMs Header */}
+                    <div className="flex items-center justify-between px-2 py-1.5 text-[11px] font-black tracking-wider text-brand uppercase">
+                      <span>TPMs (Transnational Meetings)</span>
+                      <span className="text-[10px] font-bold text-ink-muted">3 Meetings</span>
+                    </div>
+                    {tpmsList.map((tpm) => (
+                      <DropdownMenuItem key={tpm.id} asChild>
+                        <Link
+                          href={`/mobilities/${tpm.id}`}
+                          onClick={() => setMobilitiesOpen(false)}
+                          className="flex cursor-pointer items-start gap-2.5 rounded-lg px-2.5 py-2 text-xs transition-colors hover:bg-mist focus:bg-mist"
+                        >
+                          <span className="grid size-6 shrink-0 place-items-center overflow-hidden rounded-full border border-line bg-white shadow-2xs mt-0.5">
+                            <Image
+                              src={`/flags/${tpm.countryCode}.svg`}
+                              alt=""
+                              width={24}
+                              height={24}
+                              unoptimized
+                              className="size-full object-cover"
+                            />
+                          </span>
+                          <div className="min-w-0 flex-1">
+                            <div className="flex items-center justify-between gap-1">
+                              <span className="font-bold text-ink truncate">
+                                {tpm.code}: {tpm.city}
+                              </span>
+                              <span className="rounded bg-sky px-1.5 py-0.5 text-[9px] font-bold text-brand shrink-0">
+                                {tpm.format.split(" ")[0]}
+                              </span>
+                            </div>
+                            <div className="text-[10px] text-ink-muted truncate">
+                              {tpm.title}
+                            </div>
+                          </div>
+                        </Link>
+                      </DropdownMenuItem>
+                    ))}
+
+                    <DropdownMenuSeparator className="my-1.5 bg-line" />
+
+                    <DropdownMenuItem asChild>
+                      <Link
+                        href="/mobilities"
+                        onClick={() => setMobilitiesOpen(false)}
+                        className="flex cursor-pointer items-center justify-between rounded-lg px-2.5 py-2 text-xs font-semibold text-brand transition-colors hover:bg-sky-soft hover:text-brand"
+                      >
+                        <span>View All Mobilities &amp; TPMs</span>
                         <ChevronRight className="size-3.5" />
                       </Link>
                     </DropdownMenuItem>
@@ -339,7 +470,7 @@ export function SiteHeader() {
             </SheetHeader>
             <nav aria-label="Mobile" className="flex flex-col gap-1 p-3">
               {navItems.map((item) => {
-                if (item.isDropdown) {
+                if (item.label === "Partners") {
                   return (
                     <div key={item.label} className="rounded-[10px] overflow-hidden">
                       <button
@@ -380,6 +511,95 @@ export function SiteHeader() {
                               <span className="truncate">{partner.school}</span>
                             </Link>
                           ))}
+                          <Link
+                            href="/partners"
+                            onClick={() => setOpen(false)}
+                            className="mt-1 flex items-center justify-between rounded-lg px-3 py-2 text-xs font-bold text-brand transition-colors hover:bg-sky-soft"
+                          >
+                            <span>View All Partners Cards</span>
+                            <ChevronRight className="size-3.5" />
+                          </Link>
+                        </div>
+                      )}
+                    </div>
+                  )
+                }
+
+                if (item.label === "Mobilities") {
+                  return (
+                    <div key={item.label} className="rounded-[10px] overflow-hidden">
+                      <button
+                        type="button"
+                        onClick={() => setMobileMobilitiesOpen(!mobileMobilitiesOpen)}
+                        className={cn(
+                          "flex w-full items-center justify-between rounded-[10px] px-4 py-3 text-[15px] font-semibold text-ink transition-colors outline-none hover:bg-mist",
+                          isMobilitiesActive && "bg-sky text-accent-foreground"
+                        )}
+                      >
+                        <span>{item.label}</span>
+                        <ChevronDown
+                          className={cn(
+                            "size-4 transition-transform duration-200",
+                            mobileMobilitiesOpen && "rotate-180"
+                          )}
+                        />
+                      </button>
+                      {mobileMobilitiesOpen && (
+                        <div className="my-1 ml-3 space-y-1 border-l-2 border-brand/30 pl-2">
+                          <div className="px-2 py-1 text-[10px] font-black uppercase text-leaf tracking-wider">
+                            LTTAs (Learning &amp; Training)
+                          </div>
+                          {lttasList.map((ltta) => (
+                            <Link
+                              key={ltta.id}
+                              href={`/mobilities/${ltta.id}`}
+                              onClick={() => setOpen(false)}
+                              className="flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs font-semibold text-ink transition-colors hover:bg-mist"
+                            >
+                              <span className="grid size-4 shrink-0 place-items-center overflow-hidden rounded-full">
+                                <Image
+                                  src={`/flags/${ltta.countryCode}.svg`}
+                                  alt=""
+                                  width={16}
+                                  height={16}
+                                  unoptimized
+                                  className="size-full object-cover"
+                                />
+                              </span>
+                              <span className="truncate">{ltta.code} – {ltta.city}</span>
+                            </Link>
+                          ))}
+                          <div className="mt-2 px-2 py-1 text-[10px] font-black uppercase text-brand tracking-wider">
+                            TPMs (Transnational Meetings)
+                          </div>
+                          {tpmsList.map((tpm) => (
+                            <Link
+                              key={tpm.id}
+                              href={`/mobilities/${tpm.id}`}
+                              onClick={() => setOpen(false)}
+                              className="flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs font-semibold text-ink transition-colors hover:bg-mist"
+                            >
+                              <span className="grid size-4 shrink-0 place-items-center overflow-hidden rounded-full">
+                                <Image
+                                  src={`/flags/${tpm.countryCode}.svg`}
+                                  alt=""
+                                  width={16}
+                                  height={16}
+                                  unoptimized
+                                  className="size-full object-cover"
+                                />
+                              </span>
+                              <span className="truncate">{tpm.code} – {tpm.city}</span>
+                            </Link>
+                          ))}
+                          <Link
+                            href="/mobilities"
+                            onClick={() => setOpen(false)}
+                            className="mt-2 flex items-center justify-between rounded-lg px-3 py-2 text-xs font-bold text-brand transition-colors hover:bg-sky-soft"
+                          >
+                            <span>View All Mobilities &amp; TPMs</span>
+                            <ChevronRight className="size-3.5" />
+                          </Link>
                         </div>
                       )}
                     </div>

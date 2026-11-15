@@ -213,7 +213,7 @@ export default function AboutPage() {
                   asChild
                   className="h-10 bg-mint text-xs font-bold text-white shadow-sm hover:bg-[#2fb169]"
                 >
-                  <Link href="/#partners">
+                  <Link href="/partners">
                     Meet the 5 Partners
                     <ArrowRight className="size-4" />
                   </Link>
