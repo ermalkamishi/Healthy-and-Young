@@ -693,7 +693,7 @@ export function ActivitiesClient({
                   activity.disseminationLinks.length > 0 && (
                     <div className="rounded-xl border border-line bg-mist/40 p-4 sm:p-5">
                       <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand">
-                        <Sparkles className="size-3.5 text-leaf" />
+
                         <span>Public Dissemination &amp; Social Media Coverage</span>
                       </div>
                       <div className="mt-3 flex flex-wrap gap-2.5">

@@ -34,7 +34,6 @@ export type MobilityEvent = {
   targetGroup: string
   participants: string
   participantBreakdown: string
-  grant: string
   summary?: string
   article?: EventArticle
   objectives: string[]
@@ -64,7 +63,6 @@ export const mobilitiesList: MobilityEvent[] = [
     targetGroup: "School leaders, project coordinators, and educators",
     participants: "12 teachers (Türkiye, Poland, Croatia, Italy, North Macedonia)",
     participantBreakdown: "12 teachers from TR, PL, HR, IT, and MK",
-    grant: "€6,255.00",
     summary: "",
     article: {
       headline: "First Transnational Project Meeting Held in Istanbul",
@@ -142,7 +140,6 @@ export const mobilitiesList: MobilityEvent[] = [
     targetGroup: "Secondary educators, biology and science teachers, and IT instructors",
     participants: "16 visiting teachers + local pedagogical trainers",
     participantBreakdown: "4 teachers each from Türkiye, Italy, Poland, and Croatia",
-    grant: "€15,220.00",
     summary: "",
     article: {
       headline: "Educational and Cultural Mobility in North Macedonia: \"Healthy Foods, Healthy Living\"",
@@ -234,7 +231,6 @@ export const mobilitiesList: MobilityEvent[] = [
     participants: "18 international travelers + host Italian students & faculty",
     participantBreakdown:
       "3 students + 2 teachers each from TR, HR, PL; 3 representatives from MK",
-    grant: "€14,550.00",
     summary: "",
     article: {
       headline: "Youth Mobility in Abruzzo: Nutritional Science, Greenhouse Innovation & Alpine Heritage",
@@ -331,7 +327,6 @@ export const mobilitiesList: MobilityEvent[] = [
     targetGroup: "Project coordinators, evaluators, and Work Package leaders",
     participants: "10 core team representatives (2 per partner country)",
     participantBreakdown: "2 delegates each from TR, IT, PL, HR, and MK",
-    grant: "€0.00 (Virtual Activity)",
     summary: "",
     objectives: [
       "Review the quantitative and qualitative outcomes of LTTA-1 and LTTA-2.",
@@ -383,7 +378,6 @@ export const mobilitiesList: MobilityEvent[] = [
     targetGroup: "Secondary school students and biology/environmental science educators",
     participants: "15 students and 12 teachers (27 participants)",
     participantBreakdown: "Students and teachers from TR, IT, PL, HR, and MK",
-    grant: "€16,950.00",
     summary: "",
     article: {
       headline: "Learning, Teaching and Training Activity (LTTA) Held in Istanbul",
@@ -481,7 +475,6 @@ export const mobilitiesList: MobilityEvent[] = [
     targetGroup: "Secondary students, biology instructors, and eco-club representatives",
     participants: "17 students and 15 teachers (32 participants)",
     participantBreakdown: "Students and teachers from HR, TR, IT, PL, and MK",
-    grant: "€13,290.00",
     summary: "",
     article: {
       headline: "Gimnazija Metković Hosts Partners for Erasmus+ Project \"HEALTHY AND YOUNG\"",
@@ -586,7 +579,6 @@ export const mobilitiesList: MobilityEvent[] = [
     participants: "18 international travelers + Polish host students and faculty",
     participantBreakdown:
       "3 students + 2 teachers each from TR, IT, HR; 3 representatives from MK",
-    grant: "€13,950.00",
     summary: "",
     article: {
       headline: "Erasmus+ Mobility in Poland: Promoting Zero Waste and Healthy Living",
@@ -689,7 +681,6 @@ export const mobilitiesList: MobilityEvent[] = [
     targetGroup: "School principals, project coordinators, and financial administrators",
     participants: "10 participants (2 delegates per partner country)",
     participantBreakdown: "2 delegates each from TR, IT, PL, HR, and MK",
-    grant: "€5,370.00",
     summary: "",
     article: {
       headline: "Final Transnational Project Meeting Held in Skopje",
@@ -782,7 +773,6 @@ export const mobilitiesList: MobilityEvent[] = [
     targetGroup: "Students, educators, university professors, municipality leaders, and general public",
     participants: "200 physical attendees + 10 virtual partner delegates",
     participantBreakdown: "Regional schools, education directors, parents, and international online audience",
-    grant: "Project Dissemination Budget",
     summary: "",
     objectives: [
       "Present the final outputs of the 2-year Erasmus+ partnership to educational authorities and regional schools.",

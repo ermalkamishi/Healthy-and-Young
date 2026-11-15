@@ -103,41 +103,7 @@ export default function MobilitiesPage() {
               </div>
             </div>
 
-            {/* Quick Mobility Statistics */}
-            <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
-              <div className="rounded-xl border border-white/15 bg-white/10 p-3.5 backdrop-blur-xs">
-                <span className="block text-[11px] font-medium text-white/70">
-                  LTTAs (Learning Activities)
-                </span>
-                <span className="mt-1 block text-sm font-bold text-mint sm:text-base">
-                  5 Activities (1 Staff, 4 Student)
-                </span>
-              </div>
-              <div className="rounded-xl border border-white/15 bg-white/10 p-3.5 backdrop-blur-xs">
-                <span className="block text-[11px] font-medium text-white/70">
-                  Transnational Meetings (TPM)
-                </span>
-                <span className="mt-1 block text-sm font-bold text-white sm:text-base">
-                  3 Planned (2 Physical, 1 Virtual)
-                </span>
-              </div>
-              <div className="rounded-xl border border-white/15 bg-white/10 p-3.5 backdrop-blur-xs">
-                <span className="block text-[11px] font-medium text-white/70">
-                  Total Direct Mobilities
-                </span>
-                <span className="mt-1 block text-sm font-bold text-white sm:text-base">
-                  105 Direct Participants
-                </span>
-              </div>
-              <div className="rounded-xl border border-white/15 bg-white/10 p-3.5 backdrop-blur-xs">
-                <span className="block text-[11px] font-medium text-white/70">
-                  Participating Countries
-                </span>
-                <span className="mt-1 block text-sm font-bold text-white sm:text-base">
-                  TR, IT, PL, HR, MK
-                </span>
-              </div>
-            </div>
+
           </div>
         </section>
 

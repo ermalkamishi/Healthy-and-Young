@@ -212,41 +212,7 @@ export default async function MobilityDetailPage({ params }: Props) {
               </div>
             </div>
 
-            {/* Quick Metrics Strip */}
-            <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
-              <div className="rounded-xl border border-white/15 bg-white/10 p-3.5 backdrop-blur-xs">
-                <span className="block text-[11px] font-medium text-white/70">
-                  Dates
-                </span>
-                <span className="mt-1 block text-xs font-bold text-white">
-                  {event.dates}
-                </span>
-              </div>
-              <div className="rounded-xl border border-white/15 bg-white/10 p-3.5 backdrop-blur-xs">
-                <span className="block text-[11px] font-medium text-white/70">
-                  Duration
-                </span>
-                <span className="mt-1 block text-xs font-bold text-white">
-                  {event.duration}
-                </span>
-              </div>
-              <div className="rounded-xl border border-white/15 bg-white/10 p-3.5 backdrop-blur-xs">
-                <span className="block text-[11px] font-medium text-white/70">
-                  Participants
-                </span>
-                <span className="mt-1 block text-xs font-bold text-mint">
-                  {event.participants}
-                </span>
-              </div>
-              <div className="rounded-xl border border-white/15 bg-white/10 p-3.5 backdrop-blur-xs">
-                <span className="block text-[11px] font-medium text-white/70">
-                  Grant Allocated
-                </span>
-                <span className="mt-1 block text-xs font-bold text-white">
-                  {event.grant}
-                </span>
-              </div>
-            </div>
+
           </div>
         </section>
 
