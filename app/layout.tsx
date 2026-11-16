@@ -13,6 +13,9 @@ const description =
   "Healthy and Young Erasmus+ Project — partners, mobilities, student activities and educational results."
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "https://healthyandyoung.vercel.app"
+  ),
   title: {
     default: "Healthy and Young | Erasmus+ Project",
     template: "%s | Healthy and Young",
@@ -36,6 +39,9 @@ export const metadata: Metadata = {
     siteName: "Healthy and Young",
     title: "Healthy and Young | Erasmus+ Project",
     description,
+  },
+  verification: {
+    google: "iGteMs6eRBwGQPTT14OHdF5wXwRV7qalp9osXeWClqk",
   },
 }
 

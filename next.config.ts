@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  output: 'standalone',
   experimental: {
     agentFeedback: true,
   },
@@ -14,6 +14,14 @@ const nextConfig: NextConfig = {
         as: "*.css",
       },
     },
+  },
+  async rewrites() {
+    return [
+      {
+        source: "/sitemap.xlm",
+        destination: "/sitemap.xml",
+      },
+    ]
   },
 };
 

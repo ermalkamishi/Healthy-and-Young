@@ -160,7 +160,6 @@ export function MobilitiesClient() {
                 : "border-line text-ink hover:bg-mist"
             )}
           >
-            <Sparkles className="size-3.5" />
             Final Conference
             <span
               className={cn(
