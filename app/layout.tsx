@@ -12,10 +12,15 @@ const inter = Inter({
 const description =
   "Healthy and Young Erasmus+ Project — partners, mobilities, student activities and educational results."
 
+const rawBase =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "https://www.healthyandyoung.mk")
+const siteUrl = rawBase.replace(/\/+$/, "")
+
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "https://healthyandyoung.vercel.app"
-  ),
+  metadataBase: new URL(siteUrl),
   title: {
     default: "Healthy and Young | Erasmus+ Project",
     template: "%s | Healthy and Young",

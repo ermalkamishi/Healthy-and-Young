@@ -3,11 +3,12 @@ import { partners } from "@/lib/site-data"
 import { mobilitiesList } from "@/lib/mobilities-data"
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl =
+  const rawBase =
     process.env.NEXT_PUBLIC_SITE_URL ||
     (process.env.VERCEL_PROJECT_PRODUCTION_URL
       ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-      : "https://healthyandyoung.vercel.app")
+      : "https://www.healthyandyoung.mk")
+  const baseUrl = rawBase.replace(/\/+$/, "")
 
   const now = new Date()
 

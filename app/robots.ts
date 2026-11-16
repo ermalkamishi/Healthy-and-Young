@@ -1,11 +1,12 @@
 import type { MetadataRoute } from "next"
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl =
+  const rawBase =
     process.env.NEXT_PUBLIC_SITE_URL ||
     (process.env.VERCEL_PROJECT_PRODUCTION_URL
       ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-      : "https://healthyandyoung.vercel.app")
+      : "https://www.healthyandyoung.mk")
+  const baseUrl = rawBase.replace(/\/+$/, "")
 
   return {
     rules: {
