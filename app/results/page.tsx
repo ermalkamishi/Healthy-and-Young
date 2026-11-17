@@ -22,11 +22,11 @@ export const instant = false
 export const metadata: Metadata = {
   title: "Project Results, Brochures & E-Book | Healthy and Young",
   description:
-    "Explore the tangible results of the Erasmus+ Healthy and Young project: official student and teacher brochures on nutrition and food additives, plus the forthcoming comprehensive E-Book.",
+    "Explore the tangible results of the Erasmus+ Healthy and Young project: five official educational brochures and the complete 109-page Healthy and Young E-Book.",
   openGraph: {
-    title: "Project Results & Brochures | Healthy and Young Erasmus+",
+    title: "Project Results, Brochures & E-Book | Healthy and Young Erasmus+",
     description:
-      "Open access educational brochures on balanced diets, food additives, and organic farming, along with the upcoming project E-Book.",
+      "Open access educational brochures on balanced diets, food additives, and organic farming, plus the published 109-page project E-Book.",
   },
 }
 
@@ -84,7 +84,7 @@ export default function ResultsPage() {
                 </h1>
                 <p className="mt-2 max-w-[720px] text-sm leading-relaxed text-white/90 sm:text-base">
                   Explore our tangible educational deliverables: five high-impact brochures on nutrition,
-                  agro-ecology, and food additives, plus the forthcoming comprehensive project E-Book.
+                  agro-ecology, and food additives, and the complete 109-page &ldquo;Healthy and Young&rdquo; interactive E-Book.
                 </p>
               </div>
 
@@ -106,7 +106,7 @@ export default function ResultsPage() {
                 >
                   <a href="#ebook">
                     <BookOpen className="size-4" />
-                    E-Book (Coming Soon)
+                    Read E-Book (109 Pages)
                   </a>
                 </Button>
               </div>

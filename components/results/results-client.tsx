@@ -4,29 +4,31 @@ import * as React from "react"
 import Image from "next/image"
 import {
   BookOpen,
-  Calendar,
-  CheckCircle2,
-  Clock,
   Download,
   ExternalLink,
   Eye,
-  FileCheck2,
   FileText,
   Layers,
-  Sparkles,
-  Users,
+  Maximize2,
+  X,
 } from "lucide-react"
 
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
-import { brochuresList, type BrochureItem } from "@/lib/results-data"
-import ebookImg from "@/assets/images/tiles/ebook.jpg"
+import { brochuresList, ebookData } from "@/lib/results-data"
 
 export function ResultsClient() {
-  const [selectedBrochure, setSelectedBrochure] =
-    React.useState<BrochureItem | null>(null)
+  const [showInlineReader, setShowInlineReader] = React.useState(false)
+  const [activePage, setActivePage] = React.useState(1)
+  const readerRef = React.useRef<HTMLDivElement | null>(null)
+
+  const openReaderAtPage = (page: number) => {
+    setActivePage(page)
+    setShowInlineReader(true)
+    setTimeout(() => {
+      readerRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
+    }, 60)
+  }
 
   return (
     <div className="space-y-12">
@@ -166,7 +168,7 @@ export function ResultsClient() {
       </Card>
 
       {/* ========================================================= */}
-      {/* CARD 2: E-BOOK (COMING SOON)                              */}
+      {/* CARD 2: E-BOOK (PUBLISHED & VIEWABLE PDF)                 */}
       {/* ========================================================= */}
       <Card
         id="ebook"
@@ -179,139 +181,246 @@ export function ResultsClient() {
               <span className="rounded-full bg-emerald-600 px-3.5 py-1 text-xs font-black uppercase tracking-wider text-white">
                 E-Book
               </span>
-              <span className="flex items-center gap-1.5 rounded-full border border-amber-300 bg-amber-50 px-3 py-1 text-xs font-extrabold text-amber-800 shadow-2xs animate-pulse">
-
-                <span>Coming Soon!</span>
-              </span>
             </div>
 
-            <span className="flex items-center gap-1 text-xs font-medium text-ink-muted">
-              <Calendar className="size-3.5 text-brand" />
-              <span>Publication Target: Autumn 2026</span>
+            <span className="flex items-center gap-1.5 text-xs font-semibold text-ink-muted">
+              <BookOpen className="size-3.5 text-emerald-600" />
+              <span>Production: {ebookData.producer}</span>
             </span>
           </div>
 
           <div className="mt-4">
             <h2 className="text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">
-              "Healthy and Young" Educational E-Book
+              &ldquo;Healthy and Young&rdquo; Educational E-Book
             </h2>
-            <p className="mt-2 max-w-[800px] text-sm leading-relaxed text-ink-muted sm:text-base">
-              The flagship educational publication synthesizing two years of collaborative cross-border
-              research, practical school garden models, health literacy workshops, and culinary heritage.
+            <p className="mt-2 max-w-[820px] text-sm leading-relaxed text-ink-muted sm:text-base">
+              {ebookData.subtitle}.
             </p>
           </div>
         </div>
 
         {/* Card Body */}
-        <div className="p-6 sm:p-8">
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-12 md:items-center">
-            {/* Visual Book Presentation */}
-            <div className="md:col-span-5 flex justify-center">
-              <div className="relative group max-w-[320px] w-full rounded-2xl border-2 border-line bg-gradient-to-br from-mist to-white p-4 shadow-lg transition-transform duration-300 hover:scale-102">
-                <div className="relative aspect-3/4 w-full overflow-hidden rounded-xl bg-mist shadow-inner">
+        <div className="p-6 sm:p-8 space-y-8">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-center">
+            {/* Visual Book Cover Presentation + Actions */}
+            <div className="lg:col-span-6 space-y-4">
+              <button
+                type="button"
+                onClick={() => openReaderAtPage(1)}
+                className="group relative block w-full overflow-hidden rounded-2xl border-2 border-line bg-mist shadow-lg transition-all duration-300 hover:border-emerald-600/50 hover:shadow-xl text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+                aria-label="Open Healthy and Young E-Book inline PDF viewer"
+              >
+                <div className="relative aspect-video w-full overflow-hidden bg-[#16325b]">
                   <Image
-                    src={ebookImg}
-                    alt="Healthy and Young E-Book Preview"
+                    src={ebookData.coverUrl}
+                    alt={ebookData.title}
                     fill
-                    className="object-cover"
+                    unoptimized
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                   />
-                  {/* Coming Soon Overlay Ribbon */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex flex-col justify-end p-5 text-white">
-                    <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-amber-500 px-3 py-1 text-xs font-black uppercase tracking-wider text-white shadow-md">
-
-                      Coming Soon!
+                  {/* Hover Read Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 flex items-end justify-between p-5">
+                    <span className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-4 py-2 text-xs font-extrabold text-white shadow-md">
+                      <Eye className="size-4" />
+                      Click to Read E-Book Here
                     </span>
-                    <h4 className="mt-2 text-lg font-bold text-white drop-shadow-sm">
-                      Healthy and Young Guidebook
-                    </h4>
-                    <p className="text-[11px] text-white/80">
-                      Erasmus+ KA220-SCH Digital Output
-                    </p>
                   </div>
                 </div>
+              </button>
 
-                <div className="mt-3 flex items-center justify-between text-xs text-ink-muted px-1">
-                  <span className="font-semibold text-leaf">In Active Editorial Production</span>
-                  <span className="font-bold">Autumn 2026</span>
-                </div>
+              {/* Primary E-Book Action Buttons */}
+              <div className="flex flex-wrap items-center gap-2.5">
+                <Button
+                  type="button"
+                  onClick={() =>
+                    showInlineReader
+                      ? setShowInlineReader(false)
+                      : openReaderAtPage(activePage)
+                  }
+                  className="flex-1 min-w-[170px] h-11 rounded-xl bg-emerald-600 text-xs sm:text-sm font-bold text-white hover:bg-emerald-700 shadow-sm cursor-pointer"
+                >
+                  <BookOpen className="mr-2 size-4" />
+                  {showInlineReader ? "Hide Inline Reader" : "Read E-Book Here"}
+                </Button>
+
+                <Button
+                  asChild
+                  className="flex-1 min-w-[160px] h-11 rounded-xl bg-brand text-xs sm:text-sm font-bold text-white hover:bg-brand-deep shadow-sm"
+                >
+                  <a
+                    href={ebookData.pdfUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Maximize2 className="mr-2 size-4" />
+                    Open Full PDF
+                  </a>
+                </Button>
+
+                <Button
+                  asChild
+                  variant="outline"
+                  className="h-11 rounded-xl border-line px-4 text-xs sm:text-sm font-bold text-ink hover:bg-mist"
+                >
+                  <a href={ebookData.pdfUrl} download={ebookData.filename}>
+                    <Download className="mr-1.5 size-4" />
+                    Download
+                  </a>
+                </Button>
               </div>
             </div>
 
-            {/* Editorial Information & Chapter Outline */}
-            <div className="md:col-span-7 space-y-6">
+            {/* Editorial Information & Clickable 4-Part Table of Contents */}
+            <div className="lg:col-span-6 space-y-5">
               <div>
                 <span className="text-[11px] font-black uppercase tracking-wider text-leaf">
                   Publication Overview
                 </span>
                 <h3 className="mt-1 text-xl font-bold text-ink">
-                  A Comprehensive Resource for Students &amp; Educators
+                  A Complete Resource for Students &amp; Educators
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-ink/80">
-                  The editorial team across Türkiye, Italy, Poland, Croatia, and North Macedonia is
-                  compiling lessons, student testimonies, scientific presentations, and authentic recipes
-                  into an interactive, bilingual digital e-book.
+                  {ebookData.description}
                 </p>
               </div>
 
-              {/* 4 Planned Chapters */}
-              <div className="rounded-xl border border-line bg-mist/30 p-5 space-y-3.5">
-                <span className="text-xs font-bold uppercase tracking-wider text-brand">
-                  Planned Chapter Structure
-                </span>
+              {/* 4 Clickable Chapters */}
+              <div className="rounded-xl border border-line bg-mist/30 p-4 sm:p-5 space-y-3">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-xs font-bold uppercase tracking-wider text-brand">
+                    Table of Contents (Click to Jump)
+                  </span>
+                  <span className="text-[11px] font-semibold text-ink-muted">
+                    4 Parts · 109 Pages
+                  </span>
+                </div>
 
                 <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
-                  <div className="flex items-start gap-2.5 rounded-lg border border-line/60 bg-white p-3">
-                    <span className="grid size-6 shrink-0 place-items-center rounded-md bg-blue-100 text-blue-800 text-xs font-black">
-                      1
-                    </span>
-                    <div>
-                      <h5 className="text-xs font-bold text-ink">Healthy Living &amp; Nutrition</h5>
-                      <p className="text-[11px] text-ink-muted">WHO pillars, balanced diets &amp; habit tracking.</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-2.5 rounded-lg border border-line/60 bg-white p-3">
-                    <span className="grid size-6 shrink-0 place-items-center rounded-md bg-emerald-100 text-emerald-800 text-xs font-black">
-                      2
-                    </span>
-                    <div>
-                      <h5 className="text-xs font-bold text-ink">From Farm to Fork</h5>
-                      <p className="text-[11px] text-ink-muted">Organic gardening, soil health &amp; eco-farming.</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-2.5 rounded-lg border border-line/60 bg-white p-3">
-                    <span className="grid size-6 shrink-0 place-items-center rounded-md bg-amber-100 text-amber-800 text-xs font-black">
-                      3
-                    </span>
-                    <div>
-                      <h5 className="text-xs font-bold text-ink">Food Additives &amp; Preservation</h5>
-                      <p className="text-[11px] text-ink-muted">Label literacy, natural fermentation &amp; safety.</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-2.5 rounded-lg border border-line/60 bg-white p-3">
-                    <span className="grid size-6 shrink-0 place-items-center rounded-md bg-rose-100 text-rose-800 text-xs font-black">
-                      4
-                    </span>
-                    <div>
-                      <h5 className="text-xs font-bold text-ink">Zero Food Waste &amp; Future</h5>
-                      <p className="text-[11px] text-ink-muted">Circular consumption, upcycling &amp; sustainability.</p>
-                    </div>
-                  </div>
+                  {ebookData.chapters.map((chapter) => (
+                    <button
+                      key={chapter.number}
+                      type="button"
+                      onClick={() => openReaderAtPage(chapter.startPage)}
+                      className="group/ch flex items-start gap-2.5 rounded-lg border border-line/70 bg-white p-3 text-left transition-all hover:border-brand/50 hover:shadow-xs cursor-pointer"
+                    >
+                      <span
+                        className={`grid size-6 shrink-0 place-items-center rounded-md text-xs font-black ${chapter.colorClass}`}
+                      >
+                        {chapter.number}
+                      </span>
+                      <div className="min-w-0">
+                        <div className="flex items-center justify-between gap-1.5">
+                          <h5 className="text-xs font-bold text-ink group-hover/ch:text-brand transition-colors leading-snug">
+                            {chapter.title}
+                          </h5>
+                        </div>
+                        <p className="mt-0.5 text-[11px] text-ink-muted leading-snug">
+                          {chapter.description}
+                        </p>
+                        <span className="mt-1 inline-block text-[10px] font-bold text-brand/80">
+                          {chapter.pages} →
+                        </span>
+                      </div>
+                    </button>
+                  ))}
                 </div>
-              </div>
-
-              {/* Status Notice Banner */}
-              <div className="flex items-center gap-3 rounded-xl border border-dashed border-[#b6d4f1] bg-frost p-4 text-xs text-[#35526d]">
-                <Clock className="size-5 shrink-0 text-brand" />
-                <span>
-                  The completed E-Book will be published here in downloadable PDF and interactive flipbook
-                  formats following the Final Capstone Dissemination Conference in Istanbul (October 2026).
-                </span>
               </div>
             </div>
           </div>
+
+          {/* Embedded Inline PDF Viewer */}
+          {showInlineReader && (
+            <div
+              ref={readerRef}
+              className="scroll-mt-24 overflow-hidden rounded-2xl border-2 border-brand/25 bg-white shadow-lg"
+            >
+              {/* Viewer Toolbar */}
+              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line bg-frost px-4 py-3 sm:px-5">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="inline-flex items-center gap-1.5 text-xs font-extrabold text-ink">
+                    <FileText className="size-4 text-brand" />
+                    <span>{ebookData.filename}</span>
+                  </span>
+                  <div className="hidden sm:flex items-center gap-1 ml-2">
+                    <button
+                      type="button"
+                      onClick={() => setActivePage(1)}
+                      className={`rounded-md px-2 py-1 text-[11px] font-bold transition-colors cursor-pointer ${activePage === 1
+                        ? "bg-brand text-white"
+                        : "bg-white text-ink-muted hover:text-ink border border-line"
+                        }`}
+                    >
+                      Cover
+                    </button>
+                    {ebookData.chapters.map((ch) => (
+                      <button
+                        key={ch.number}
+                        type="button"
+                        onClick={() => setActivePage(ch.startPage)}
+                        className={`rounded-md px-2 py-1 text-[11px] font-bold transition-colors cursor-pointer ${activePage === ch.startPage
+                          ? "bg-brand text-white"
+                          : "bg-white text-ink-muted hover:text-ink border border-line"
+                          }`}
+                      >
+                        Part {ch.number}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <Button
+                    asChild
+                    variant="outline"
+                    size="sm"
+                    className="h-8 rounded-lg text-xs font-bold"
+                  >
+                    <a
+                      href={`${ebookData.pdfUrl}#page=${activePage}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <ExternalLink className="mr-1.5 size-3.5" />
+                      New Tab
+                    </a>
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setShowInlineReader(false)}
+                    className="h-8 rounded-lg text-xs font-bold text-ink-muted hover:text-ink cursor-pointer"
+                  >
+                    <X className="mr-1 size-3.5" />
+                    Close
+                  </Button>
+                </div>
+              </div>
+
+              {/* PDF Iframe */}
+              <div className="relative w-full bg-[#323639]">
+                <iframe
+                  key={activePage}
+                  src={`${ebookData.pdfUrl}#page=${activePage}&view=FitH`}
+                  title={ebookData.title}
+                  className="h-[78vh] min-h-[540px] w-full border-0"
+                />
+              </div>
+
+              {/* Mobile / Browser Fallback Footer */}
+              <div className="flex flex-wrap items-center justify-between gap-2 border-t border-line bg-mist/40 px-4 py-2.5 text-[11px] text-ink-muted">
+
+                <a
+                  href={ebookData.pdfUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-bold text-brand hover:underline"
+                >
+                  Open Fullscreen PDF →
+                </a>
+              </div>
+            </div>
+          )}
         </div>
       </Card>
     </div>
