@@ -5,15 +5,22 @@ import { notFound } from "next/navigation"
 import {
   ArrowLeft,
   ArrowRight,
+  Award,
+  BookOpen,
   Building2,
   Calendar,
   CheckCircle2,
   ExternalLink,
   Globe,
   GraduationCap,
+  HeartHandshake,
+  Languages,
   MapPin,
+  Newspaper,
   Plane,
   ShieldCheck,
+  Sparkles,
+  Trophy,
   UserCheck,
   Users,
 } from "lucide-react"
@@ -167,11 +174,28 @@ export default async function PartnerDetailPage({ params }: PageProps) {
                     </a>
                   </Button>
                 )}
+                {partner.extraContent?.articlesUrl && (
+                  <Button
+                    asChild
+                    variant="outline"
+                    className="h-10 border-white/40 bg-white/10 text-xs font-bold text-white hover:bg-white hover:text-brand"
+                  >
+                    <a
+                      href={partner.extraContent.articlesUrl.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Newspaper className="size-4 text-sky" />
+                      Erasmus+ Articles
+                      <ExternalLink className="size-3.5 opacity-70" />
+                    </a>
+                  </Button>
+                )}
                 <Button
                   asChild
                   className="h-10 bg-mint text-xs font-bold text-white shadow-sm hover:bg-[#2fb169]"
                 >
-                  <Link href="/#partners">
+                  <Link href="/partners">
                     <ArrowLeft className="size-4" />
                     Back to All Partners
                   </Link>
@@ -215,7 +239,7 @@ export default async function PartnerDetailPage({ params }: PageProps) {
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.85fr_1fr]">
             {/* Main Column */}
             <div className="space-y-8">
-              {/* About the organization */}
+              {/* School Description / About the organization */}
               <Card className="p-6 sm:p-8">
                 <div className="flex items-start justify-between gap-4">
                   <div>
@@ -224,8 +248,13 @@ export default async function PartnerDetailPage({ params }: PageProps) {
                       <span>About the Institution</span>
                     </div>
                     <h2 className="mt-2 text-xl font-bold text-ink sm:text-2xl">
-                      Background &amp; Profile
+                      {partner.extraContent?.history ? "School Description" : "Background & Profile"}
                     </h2>
+                    {partner.extraContent?.history && (
+                      <p className="mt-1 text-sm font-semibold text-brand">
+                        {partner.school}
+                      </p>
+                    )}
                   </div>
 
                   {partner.image && (
@@ -264,38 +293,289 @@ export default async function PartnerDetailPage({ params }: PageProps) {
                 )}
               </Card>
 
-              {/* Responsibilities in the Project */}
-              <Card className="p-6 sm:p-8">
-                <div className="flex items-center gap-2.5 text-xs font-black tracking-wider text-leaf uppercase">
-                  <ShieldCheck className="size-4" />
-                  <span>Healthy &amp; Young Project Tasks</span>
-                </div>
-                <h2 className="mt-2 text-xl font-bold text-ink sm:text-2xl">
-                  Responsibilities &amp; Work Packages
-                </h2>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  Key responsibilities assigned to {partner.school} within the
-                  official Erasmus+ KA220-SCH cooperation agreement:
-                </p>
-                <ul className="mt-4 space-y-3">
-                  {partner.projectResponsibilities.map((resp, i) => (
-                    <li
-                      key={i}
-                      className="flex items-start gap-3 rounded-lg border border-line/60 bg-frost p-3.5 text-sm font-medium text-ink"
+              {/* History and Tradition (if provided) */}
+              {partner.extraContent?.history && (
+                <Card className="p-6 sm:p-8">
+                  <div className="flex items-center gap-2.5 text-xs font-black tracking-wider text-leaf uppercase">
+                    <Calendar className="size-4" />
+                    <span>School Heritage</span>
+                  </div>
+                  <h2 className="mt-2 text-xl font-bold text-ink sm:text-2xl">
+                    {partner.extraContent.history.title}
+                  </h2>
+                  <p className="mt-3 text-sm leading-[1.7] text-muted-foreground sm:text-base">
+                    {partner.extraContent.history.description}
+                  </p>
+                </Card>
+              )}
+
+              {/* Academic and Student Life (if provided) */}
+              {partner.extraContent?.academicLife && (
+                <Card className="p-6 sm:p-8">
+                  <div className="flex items-center gap-2.5 text-xs font-black tracking-wider text-leaf uppercase">
+                    <GraduationCap className="size-4" />
+                    <span>Student Life &amp; Cooperation</span>
+                  </div>
+                  <h2 className="mt-2 text-xl font-bold text-ink sm:text-2xl">
+                    {partner.extraContent.academicLife.title}
+                  </h2>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    {partner.extraContent.academicLife.intro}
+                  </p>
+                  <ul className="mt-4 space-y-2.5">
+                    {partner.extraContent.academicLife.items.map((item, idx) => (
+                      <li
+                        key={idx}
+                        className="flex items-start gap-3 rounded-lg border border-line/70 bg-frost p-3.5 text-xs sm:text-sm font-medium text-ink"
+                      >
+                        <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-mint" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </Card>
+              )}
+
+              {/* Extra Partner Content: Foreign Languages at School */}
+              {partner.extraContent?.languages && (
+                <Card className="p-6 sm:p-8">
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <div>
+                      <div className="flex items-center gap-2.5 text-xs font-black tracking-wider text-leaf uppercase">
+                        <Languages className="size-4" />
+                        <span>Curriculum &amp; Culture</span>
+                      </div>
+                      <h2 className="mt-2 text-xl font-bold text-ink sm:text-2xl">
+                        {partner.extraContent.languages.title}
+                      </h2>
+                    </div>
+                    <Badge className="bg-sky/20 text-brand border border-sky/30 text-xs font-bold hover:bg-sky/30">
+                      Bilingual Tracks &amp; Competitions
+                    </Badge>
+                  </div>
+
+                  {partner.extraContent.languages.description && (
+                    <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+                      {partner.extraContent.languages.description}
+                    </p>
+                  )}
+
+                  <div className="mt-6 space-y-5">
+                    {/* Language competitions */}
+                    <div className="rounded-xl border border-line bg-frost p-5">
+                      <div className="flex items-center gap-2">
+                        <Trophy className="size-4 text-brand shrink-0" />
+                        <h3 className="text-sm font-bold text-ink sm:text-base">
+                          {partner.extraContent.languages.competitions.title}
+                        </h3>
+                      </div>
+                      <ul className="mt-3 space-y-2 text-xs sm:text-sm text-muted-foreground">
+                        {partner.extraContent.languages.competitions.details.map(
+                          (point, idx) => (
+                            <li key={idx} className="flex items-start gap-2.5">
+                              <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-mint" />
+                              <span>{point}</span>
+                            </li>
+                          )
+                        )}
+                      </ul>
+                    </div>
+
+                    {/* Noc Anglistów (English Night) */}
+                    <div className="rounded-xl border border-line bg-frost p-5">
+                      <div className="flex items-center gap-2">
+                        <BookOpen className="size-4 text-brand shrink-0" />
+                        <h3 className="text-sm font-bold text-ink sm:text-base">
+                          {partner.extraContent.languages.englishNight.title}
+                        </h3>
+                      </div>
+                      <ul className="mt-3 space-y-2 text-xs sm:text-sm text-muted-foreground">
+                        {partner.extraContent.languages.englishNight.details.map(
+                          (point, idx) => (
+                            <li key={idx} className="flex items-start gap-2.5">
+                              <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-mint" />
+                              <span>{point}</span>
+                            </li>
+                          )
+                        )}
+                      </ul>
+                    </div>
+
+                    {/* Language and cultural events */}
+                    <div className="rounded-xl border border-line bg-frost p-5">
+                      <div className="flex items-center gap-2">
+                        <Sparkles className="size-4 text-brand shrink-0" />
+                        <h3 className="text-sm font-bold text-ink sm:text-base">
+                          {partner.extraContent.languages.events.title}
+                        </h3>
+                      </div>
+                      <ul className="mt-3 space-y-2 text-xs sm:text-sm text-muted-foreground">
+                        {partner.extraContent.languages.events.details.map(
+                          (point, idx) => (
+                            <li key={idx} className="flex items-start gap-2.5">
+                              <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-mint" />
+                              <span>{point}</span>
+                            </li>
+                          )
+                        )}
+                      </ul>
+                    </div>
+                  </div>
+                </Card>
+              )}
+
+              {/* Extra Partner Content: Achievements and Activities */}
+              {partner.extraContent?.achievements && (
+                <Card className="p-6 sm:p-8">
+                  <div className="flex items-center gap-2.5 text-xs font-black tracking-wider text-leaf uppercase">
+                    <Award className="size-4" />
+                    <span>Excellence &amp; Extracurricular</span>
+                  </div>
+                  <h2 className="mt-2 text-xl font-bold text-ink sm:text-2xl">
+                    {partner.extraContent.achievements.title}
+                  </h2>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    {partner.extraContent.achievements.intro}
+                  </p>
+
+                  <ul className="mt-4 space-y-2.5">
+                    {partner.extraContent.achievements.items.map((item, idx) => (
+                      <li
+                        key={idx}
+                        className="flex items-start gap-3 rounded-lg border border-line/70 bg-mist p-3.5 text-xs sm:text-sm font-medium text-ink"
+                      >
+                        <Trophy className="mt-0.5 size-4 shrink-0 text-brand" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {partner.extraContent.achievements.guestMeetings && (
+                    <div className="mt-4 rounded-lg border border-sky/30 bg-sky-soft p-3.5 text-xs sm:text-sm text-brand font-medium">
+                      {partner.extraContent.achievements.guestMeetings}
+                    </div>
+                  )}
+                </Card>
+              )}
+
+              {/* Extra Partner Content: School Community and Values */}
+              {partner.extraContent?.values && (
+                <Card className="p-6 sm:p-8">
+                  <div className="flex items-center gap-2.5 text-xs font-black tracking-wider text-leaf uppercase">
+                    <HeartHandshake className="size-4" />
+                    <span>Community &amp; Shared Identity</span>
+                  </div>
+                  <h2 className="mt-2 text-xl font-bold text-ink sm:text-2xl">
+                    {partner.extraContent.values.title}
+                  </h2>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    {partner.extraContent.values.intro}
+                  </p>
+
+                  <ul className="mt-4 space-y-2.5">
+                    {partner.extraContent.values.points.map((pt, idx) => (
+                      <li
+                        key={idx}
+                        className="flex items-start gap-2.5 rounded-lg border border-line/60 bg-frost p-3 text-xs sm:text-sm text-ink-soft"
+                      >
+                        <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-mint" />
+                        <span>{pt}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {partner.extraContent.values.highlight && (
+                    <div className="mt-5 rounded-xl border border-mint/40 bg-mint/10 p-4">
+                      <div className="flex items-center gap-2 text-xs font-bold text-leaf uppercase">
+                        <Sparkles className="size-4 text-mint" />
+                        <span>Community Highlight</span>
+                      </div>
+                      <p className="mt-1 text-xs sm:text-sm font-medium text-ink leading-relaxed">
+                        {partner.extraContent.values.highlight}
+                      </p>
+                    </div>
+                  )}
+                </Card>
+              )}
+
+              {/* Live Web Resources & Erasmus+ Articles Callout */}
+              {partner.extraContent?.articlesUrl && (
+                <Card className="p-6 sm:p-8 bg-gradient-to-br from-brand/5 via-sky-soft/30 to-white border border-brand/20">
+                  <div className="flex items-center gap-2 text-xs font-black tracking-wider text-brand uppercase">
+                    <Newspaper className="size-4" />
+                    <span>School Publications</span>
+                  </div>
+                  <h3 className="mt-1 text-lg font-bold text-ink sm:text-xl">
+                    Articles about School Activities – Erasmus+ Programme
+                  </h3>
+                  <p className="mt-2 text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                    Explore active coverage of international projects, school initiatives, and student mobilities directly on the official school website:
+                  </p>
+                  <div className="mt-4 flex flex-wrap gap-3">
+                    <Button
+                      asChild
+                      className="bg-brand text-xs font-bold text-white hover:bg-brand-strong"
                     >
-                      <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-mint" />
-                      <span>{resp}</span>
-                    </li>
-                  ))}
-                </ul>
-              </Card>
+                      <a
+                        href={partner.extraContent.articlesUrl.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Newspaper className="size-4" />
+                        {partner.extraContent.articlesUrl.label}
+                        <ExternalLink className="size-3.5 opacity-70" />
+                      </a>
+                    </Button>
+                    <Button
+                      asChild
+                      variant="outline"
+                      className="text-xs font-bold border-brand/30 text-brand hover:bg-sky-soft"
+                    >
+                      <a
+                        href={partner.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Globe className="size-4" />
+                        Main School Website
+                        <ExternalLink className="size-3.5 opacity-70" />
+                      </a>
+                    </Button>
+                  </div>
+                </Card>
+              )}
+
+              {/* Responsibilities in the Project (only rendered if defined) */}
+              {partner.projectResponsibilities && partner.projectResponsibilities.length > 0 && (
+                <Card className="p-6 sm:p-8">
+                  <div className="flex items-center gap-2.5 text-xs font-black tracking-wider text-leaf uppercase">
+                    <ShieldCheck className="size-4" />
+                    <span>Healthy &amp; Young Project Tasks</span>
+                  </div>
+                  <h2 className="mt-2 text-xl font-bold text-ink sm:text-2xl">
+                    Responsibilities &amp; Work Packages
+                  </h2>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    Key responsibilities assigned to {partner.school} within the
+                    official Erasmus+ KA220-SCH cooperation agreement:
+                  </p>
+                  <ul className="mt-4 space-y-3">
+                    {partner.projectResponsibilities.map((resp, i) => (
+                      <li
+                        key={i}
+                        className="flex items-start gap-3 rounded-lg border border-line/60 bg-frost p-3.5 text-sm font-medium text-ink"
+                      >
+                        <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-mint" />
+                        <span>{resp}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </Card>
+              )}
             </div>
 
             {/* Side Column */}
             <div className="space-y-6">
-              {/* Key Persons */}
-
-
               {/* Campus Facilities */}
               <Card className="p-6">
                 <div className="flex items-center gap-2 text-xs font-black tracking-wider text-leaf uppercase">
@@ -303,7 +583,7 @@ export default async function PartnerDetailPage({ params }: PageProps) {
                   <span>Facilities &amp; Environment</span>
                 </div>
                 <h3 className="mt-2 text-lg font-bold text-ink">
-                  Campus Resources
+                  {partner.extraContent ? "Educational Environment" : "Campus Resources"}
                 </h3>
                 <ul className="mt-3 space-y-2 text-xs sm:text-sm text-ink-soft">
                   {partner.facilities.map((fac, i) => (
@@ -315,24 +595,26 @@ export default async function PartnerDetailPage({ params }: PageProps) {
                 </ul>
               </Card>
 
-              {/* Past European Experience */}
-              <Card className="p-6">
-                <div className="flex items-center gap-2 text-xs font-black tracking-wider text-leaf uppercase">
-                  <ShieldCheck className="size-4" />
-                  <span>International Background</span>
-                </div>
-                <h3 className="mt-2 text-lg font-bold text-ink">
-                  Past Erasmus+ Projects
-                </h3>
-                <ul className="mt-3 space-y-2 text-xs text-muted-foreground">
-                  {partner.previousExperience.map((exp, i) => (
-                    <li key={i} className="flex items-start gap-2">
-                      <span className="mt-1.5 size-1 shrink-0 rounded-full bg-brand" />
-                      <span>{exp}</span>
-                    </li>
-                  ))}
-                </ul>
-              </Card>
+              {/* Past European Experience / Institutional Highlights */}
+              {partner.previousExperience && partner.previousExperience.length > 0 && (
+                <Card className="p-6">
+                  <div className="flex items-center gap-2 text-xs font-black tracking-wider text-leaf uppercase">
+                    <ShieldCheck className="size-4" />
+                    <span>{partner.extraContent ? "Key Highlights" : "International Background"}</span>
+                  </div>
+                  <h3 className="mt-2 text-lg font-bold text-ink">
+                    {partner.extraContent ? "Institutional Highlights" : "Past Erasmus+ Projects"}
+                  </h3>
+                  <ul className="mt-3 space-y-2 text-xs text-muted-foreground">
+                    {partner.previousExperience.map((exp, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <span className="mt-1.5 size-1 shrink-0 rounded-full bg-brand" />
+                        <span>{exp}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </Card>
+              )}
             </div>
           </div>
 

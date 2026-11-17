@@ -99,6 +99,55 @@ export type MobilityHighlight = {
   programSummary: string[]
 }
 
+export type PartnerExtraContent = {
+  history?: {
+    title: string
+    description: string
+  }
+  academicLife?: {
+    title: string
+    intro: string
+    items: string[]
+  }
+  languages?: {
+    title: string
+    description?: string
+    competitions: {
+      title: string
+      details: string[]
+    }
+    englishNight: {
+      title: string
+      details: string[]
+    }
+    events: {
+      title: string
+      details: string[]
+    }
+  }
+  achievements?: {
+    title: string
+    intro: string
+    items: string[]
+    guestMeetings?: string
+  }
+  values?: {
+    title: string
+    intro: string
+    points: string[]
+    highlight?: string
+    conclusion?: string
+  }
+  articlesUrl?: {
+    label: string
+    url: string
+  }
+  websiteUrl?: {
+    label: string
+    url: string
+  }
+}
+
 export type Partner = {
   slug: string
   country: string
@@ -123,6 +172,7 @@ export type Partner = {
   hostedMobility?: MobilityHighlight
   keyPersons: KeyPerson[]
   previousExperience: string[]
+  extraContent?: PartnerExtraContent
 }
 
 export const partners: Partner[] = [
@@ -274,73 +324,124 @@ export const partners: Partner[] = [
     slug: "zespol-szkol-zeromskiego",
     country: "Poland",
     code: "pl",
-    school: "Zespol Szkol Ogolnoksztalcacych im. Stefana Zeromskiego w Bielsku-Bialej",
-    navLabel: "Zespol Szkol Ogolnoksztalcacych im. Stefana Zeromskiego w Bielsku-Bialej",
+    school: "Zespół Szkół Ogólnokształcących im. S. Żeromskiego w Bielsku-Białej",
+    navLabel: "Zespół Szkół Ogólnokształcących im. S. Żeromskiego w Bielsku-Białej",
     legalName:
       "Zespol Szkol Ogolnoksztalcacych im. Stefana Zeromskiego w Bielsku-Bialej",
     role: "Project Partner",
     oid: "E10044897",
     city: "Bielsko-Biała",
     region: "Śląskie (Silesia), Southern Poland",
-    website: "https://www.zeromski3lo.edu.pl",
-    type: "School/Institute/Educational center – General secondary education",
-    studentCount: "750 secondary students (ages 14–19)",
-    teacherCount: "80 teachers, psychologists & counselors",
+    website: "https://www.zeromski3lo.edu.pl/",
+    type: "Public High School Complex (ZSO) – General Academic & Bilingual Sections",
+    estDate: "c. 1951 (Celebrated 60th Anniversary in 2011)",
+    studentCount: "Over 8,000 graduates educated",
+    teacherCount: "Hundreds of teachers across decades",
     image: "/images/partners/poland.jpeg",
     summary:
-      "Renowned Polish secondary school located near Kraków and the Beskidy mountains, celebrated for its high academic standards, active youth initiatives against food waste, and strong environmental awareness.",
+      "III Secondary School named after Stefan Żeromski in Bielsko-Biała is a long-established public high school combining solid academic education with bilingual classes, rich traditions, active extracurricular opportunities, and strong European cooperation.",
     about: [
-      "Liceum Ogólnokształcące im. Stefana Żeromskiego is located in Bielsko-Biała in southern Poland, approximately 80 km from Kraków and 30 km from the Czech border. The school is renowned for rigorous academic preparation, with high acceptance rates at top universities.",
-      "The secondary curriculum features specialized profiles in mathematics-physics-IT, biology-chemistry, and humanities-social sciences. The school employs 80 teachers, full-time psychologists, guidance counselors, and health staff.",
-      "The school is widely recognized for concrete civic initiatives: it operates a community sharing refrigerator to eliminate canteen food waste, holds healthy breakfast fairs, and collaborates with regional agricultural cooperatives and food banks.",
+      "III Secondary School named after Stefan Żeromski in Bielsko-Biała is a long-established public high school located in southern Poland. The school is part of a broader educational complex (Zespół Szkół Ogólnokształcących) and serves both current students and candidates preparing for upper-secondary education.",
+      "The institution combines tradition with modern education, offering general academic profiles and bilingual classes, as suggested by references to “oddziały dwujęzyczne” (bilingual sections).",
     ],
     facilities: [
-      "Advanced biology and chemistry laboratories",
-      "Computer labs and multi-media learning suites",
-      "Community food-sharing hub and sustainable kitchen station",
-      "School library with extensive academic research archives",
-      "Multi-purpose indoor sports hall and fitness studios",
+      "Subject-specific classrooms and a multimedia computer lab",
+      "School library with an information center",
+      "Sports facilities such as a gym, fitness room, and even a fitness hall",
+      "Medical office and student amenities like a buffet",
+      "Infrastructure supporting both academic and extracurricular development",
     ],
-    projectResponsibilities: [
-      "Lead partner for the Planning of International Mobilities (WP1 / WP4)",
-      "Organizing the project-wide Logo Selection Competition and survey",
-      "Hosting the LTTA-5 Student Mobility on Food Waste Prevention (Sept 2026)",
-      "Conducting research on fast-food habits, eating disorders, and global hunger",
-      "Providing English language revision and editorial review for project publications",
-    ],
-    hostedMobility: {
-      title: "LTTA-5 Student Mobility: Food Waste Prevention",
-      type: "Student Learning & Teaching Mobility (5 days + 2 travel days)",
-      dates: "21/09/2026 – 25/09/2026",
-      venue: "Bielsko-Biała & Kraków, Poland",
-      focus:
-        "Innovative food preservation, circular food economics, waste reduction technologies, and community solidarity.",
-      programSummary: [
-        "Day 1: Study visit to BOSCO catering facility & leftover management culinary workshop.",
-        "Day 2: Interactive workshop with REBREAD (innovative NGO upcycling stale bakery products).",
-        "Day 3: Lectures and practical classes at the Agricultural University of Kraków on food waste processing.",
-        "Day 4: Field excursion to the municipal waste management and composting plant in Bielsko-Biała.",
-        "Day 5: Collaborative school workshop creating the 'Stop Food Waste' digital youth e-magazine.",
-      ],
-    },
-    keyPersons: [
-      {
-        name: "Science & Ecology Department",
-        role: "Biology, Chemistry & Geography Faculty",
-        bio: "Experienced educators who integrate sustainable agriculture and adolescent dietary health into cross-curricular lesson plans, partnering with Polish food charity networks.",
-      },
-      {
-        name: "Languages & Humanities Faculty",
-        role: "English Language & International Projects Team",
-        bio: "Specialists in European educational exchange, academic writing, and bilingual text editing who oversee project dissemination in English.",
-      },
-    ],
+    projectResponsibilities: [],
     previousExperience: [
-      "Strategic Partnerships for School Education (KA201)",
-      "School Exchange Partnerships (KA229)",
-      "Active participant in regional Polish eco-farming initiatives and food distribution campaigns",
-      "Over a decade of international student exchange programs",
+      "Participation in international programs such as Erasmus+ and EU-funded projects",
+      "Nationwide English language competitions and University of Wrocław academic cooperation",
+      "Student civic and social initiatives within the “Zwolnieni z Teorii” program",
+      "Large-scale community events including “Bielsko-Biała Got Talent”",
     ],
+    keyPersons: [],
+    extraContent: {
+      history: {
+        title: "History and Tradition",
+        description:
+          "The school has a strong historical background. It celebrated its 60th anniversary in 2011, which indicates that it was founded around the early 1950s. Over the decades, the school has educated more than 8,000 graduates, supported by hundreds of teachers and several headmasters. The school emphasizes that its history is shaped not only by institutional milestones but also by the people who create its community—students, teachers, and staff.",
+      },
+      academicLife: {
+        title: "Academic and Student Life",
+        intro:
+          "The school is very active in both academic and extracurricular areas. Its activities include:",
+        items: [
+          "Participation in international programs such as Erasmus+ and EU-funded projects",
+          "Organization of events like debates, competitions, and cultural initiatives",
+          "Strong emphasis on foreign languages and international cooperation",
+        ],
+      },
+      languages: {
+        title: "Foreign Languages at School",
+        competitions: {
+          title: "Language Competitions",
+          details: [
+            "Long-standing tradition of organising English-language competitions for students of different educational levels: English Language Competition for Primary Schools, English Language Competition for Secondary Schools.",
+            "POLIGLOTA Competition – focusing on European languages and intercultural knowledge of those countries.",
+            "Students develop their English skills, cultural knowledge and academic interests beyond the regular classroom.",
+            "Competitions promote multilingualism, intercultural awareness and healthy academic competition.",
+            "They bring together students from our school and the wider local educational community.",
+          ],
+        },
+        englishNight: {
+          title: "Noc Anglistów (English Night)",
+          details: [
+            "Annual participation in this nationwide event dedicated to English language and culture.",
+            "Students attend lectures and workshops at the University of Wrocław.",
+            "Participation in a nationwide English-language competition, with students achieving outstanding results, including podium places.",
+            "The event strengthens the school’s cooperation with the University of Wrocław.",
+            "Students have the opportunity to explore English studies and develop their language skills beyond the classroom.",
+          ],
+        },
+        events: {
+          title: "Language and Cultural Events",
+          details: [
+            "Annual celebrations of Pumpkin Day, St Patrick’s Day, Valentine’s Day, Scottish Day and the European Day of Languages.",
+            "Students prepare presentations, costumes and creative classroom decorations.",
+            "Bake sales and other student-led activities encourage active participation.",
+            "Literary and writing competitions develop students’ creativity and language skills.",
+            "Students from bilingual classes share their knowledge of different countries, languages and cultures with the wider school community.",
+            "Events promote multilingualism, intercultural awareness, creativity and learning through active participation.",
+          ],
+        },
+      },
+      achievements: {
+        title: "Achievements and Activities",
+        intro: "Students regularly achieve success in various fields:",
+        items: [
+          "Sports achievements, including city and regional championships in football and basketball.",
+          "Academic and artistic competitions, such as language contests and poetry competitions.",
+          "Social and cultural projects, for example initiatives carried out within the “Zwolnieni z Teorii” program.",
+        ],
+        guestMeetings:
+          "The school also hosts meetings with notable figures (e.g. writers, journalists, and mountaineers), enriching students’ educational experience.",
+      },
+      values: {
+        title: "School Community and Values",
+        intro: "The institution places strong emphasis on:",
+        points: [
+          "Student engagement and self-government initiatives",
+          "Development of passions and talents",
+          "Building a sense of community and shared identity",
+        ],
+        highlight:
+          "Projects like “Bielsko-Biała Got Talent” show that students actively organize large cultural events for the local community.",
+        conclusion:
+          "III LO im. Stefana Żeromskiego in Bielsko-Biała is a school with a rich tradition and a dynamic present. It combines solid academic education with a wide range of extracurricular opportunities, international cooperation, and a strong sense of community. Its long history, modern facilities, and active student life make it an important educational institution in the region.",
+      },
+      articlesUrl: {
+        label: "Articles about in school activities – Erasmus+ Programme",
+        url: "https://www.zeromski3lo.edu.pl/search/label/Erasmus",
+      },
+      websiteUrl: {
+        label: "Official School Website",
+        url: "https://www.zeromski3lo.edu.pl/",
+      },
+    },
   },
   {
     slug: "ars-publika",
